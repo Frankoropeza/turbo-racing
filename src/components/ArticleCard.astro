@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: string;
+  slug: string;
+  image?: string;
+}
+
+const { title, description, pubDate, category, slug, image } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="group bg-secondary/50 border border-light/5 rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300">
+  {image ? (
+    <div class="aspect-video overflow-hidden bg-secondary">
+      <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+    </div>
+  ) : (
+    <div class="aspect-video bg-gradient-to-br from-primary/20 to-secondary flex items-center justify-center">
+      <span class="text-5xl opacity-50">🏁</span>
+    </div>
+  )}
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="text-xs font-medium text-primary uppercase tracking-wide">{category}</span>
+      <span class="text-light/30">&middot;</span>
+      <time datetime={pubDate.toISOString()} class="text-xs text-light/40">{formattedDate}</time>
+    </div>
+    <h3 class="font-heading text-xl font-bold text-light group-hover:text-primary transition-colors mb-2 line-clamp-2">
+      <a href={`/noticias/${slug}`} class="after:absolute after:inset-0 relative">
+        {title}
+      </a>
+    </h3>
+    <p class="text-sm text-light/50 line-clamp-3 leading-relaxed">{description}</p>
+  </div>
+</article>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'noticias'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, pubDate, author, category, tags, image } = entry.data;
+
+const formattedDate = pubDate.toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={description} image={image} article pubDate={pubDate} author={author}>
+  <article class="max-w-3xl mx-auto px-4 py-16">
+    <header class="mb-10">
+      <span class="inline-block bg-primary/20 text-primary text-sm font-medium px-3 py-1 rounded-full uppercase tracking-wide mb-4">
+        {category}
+      </span>
+      <h1 class="font-heading text-4xl md:text-5xl font-bold text-light leading-tight mb-4">
+        {title}
+      </h1>
+      <p class="text-lg text-light/60 mb-6">{description}</p>
+      <div class="flex flex-wrap items-center gap-4 text-sm text-light/50 border-b border-light/10 pb-6">
+        <span>Por <strong class="text-light/80">{author}</strong></span>
+        <span>&middot;</span>
+        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      </div>
+    </header>
+
+    <div class="prose prose-invert prose-lg max-w-none
+      prose-headings:font-heading prose-headings:text-light
+      prose-a:text-primary hover:prose-a:text-primary/80
+      prose-strong:text-light
+      prose-code:text-accent">
+      <slot />
+    </div>
+
+    {tags.length > 0 && (
+      <footer class="mt-12 pt-6 border-t border-light/10">
+        <div class="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class="bg-secondary text-light/70 text-xs px-3 py-1 rounded-full">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </footer>
+    )}
+  </article>
+</BaseLayout>

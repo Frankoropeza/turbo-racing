@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const allNoticias = await getCollection('noticias', ({ data }) => !data.draft);
+const latestNoticias = allNoticias
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Inicio"
+  description="Turbo Racing — Portal de noticias, eventos y pilotos del mundo del automovilismo. Pasión por la velocidad."
+>
+  <HeroSection />
+
+  <!-- Últimas Noticias -->
+  <section id="ultimas-noticias" class="max-w-7xl mx-auto px-4 py-20">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <span class="text-accent text-sm font-semibold uppercase tracking-[0.2em]">Actualidad</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-light mt-2">Últimas Noticias</h2>
+      </div>
+      <a href="/noticias" class="hidden sm:inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+        Ver todas
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+
+    {latestNoticias.length > 0 ? (
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {latestNoticias.map((noticia) => (
+          <ArticleCard
+            title={noticia.data.title}
+            description={noticia.data.description}
+            pubDate={noticia.data.pubDate}
+            category={noticia.data.category}
+            slug={noticia.slug}
+            image={noticia.data.image}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-light/50 text-center py-12">Próximamente publicaremos nuestras primeras noticias.</p>
+    )}
+
+    <div class="sm:hidden mt-8 text-center">
+      <a href="/noticias" class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+        Ver todas las noticias &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- Próximos Eventos -->
+  <section id="eventos" class="bg-secondary/30 border-y border-light/5">
+    <div class="max-w-7xl mx-auto px-4 py-20">
+      <div class="text-center mb-12">
+        <span class="text-accent text-sm font-semibold uppercase tracking-[0.2em]">Calendario</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-light mt-2">Próximos Eventos</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-dark/50 border border-light/5 rounded-xl p-6 text-center hover:border-accent/30 transition-colors">
+          <div class="text-accent font-heading text-2xl font-bold mb-1">15</div>
+          <div class="text-light/40 text-sm uppercase tracking-wide mb-4">Abril 2026</div>
+          <h3 class="font-heading text-lg font-semibold text-light mb-2">Gran Premio de Primavera</h3>
+          <p class="text-sm text-light/50">Circuito de Jarama, Madrid</p>
+        </div>
+        <div class="bg-dark/50 border border-light/5 rounded-xl p-6 text-center hover:border-accent/30 transition-colors">
+          <div class="text-accent font-heading text-2xl font-bold mb-1">02</div>
+          <div class="text-light/40 text-sm uppercase tracking-wide mb-4">Mayo 2026</div>
+          <h3 class="font-heading text-lg font-semibold text-light mb-2">Turbo Racing Open Day</h3>
+          <p class="text-sm text-light/50">Taller Turbo Racing, Madrid</p>
+        </div>
+        <div class="bg-dark/50 border border-light/5 rounded-xl p-6 text-center hover:border-accent/30 transition-colors">
+          <div class="text-accent font-heading text-2xl font-bold mb-1">20</div>
+          <div class="text-light/40 text-sm uppercase tracking-wide mb-4">Junio 2026</div>
+          <h3 class="font-heading text-lg font-semibold text-light mb-2">Copa de Verano</h3>
+          <p class="text-sm text-light/50">Circuit de Barcelona-Catalunya</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="max-w-7xl mx-auto px-4 py-20 text-center">
+    <h2 class="font-heading text-3xl md:text-4xl font-bold text-light mb-4">
+      ¿Listo para sentir la adrenalina?
+    </h2>
+    <p class="text-light/50 max-w-xl mx-auto mb-8">
+      Únete a la comunidad Turbo Racing y no te pierdas ninguna novedad del mundo del automovilismo.
+    </p>
+    <a
+      href="/noticias"
+      class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:scale-105 shadow-lg shadow-primary/25"
+    >
+      Explorar Noticias
+    </a>
+  </section>
+</BaseLayout>

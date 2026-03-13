@@ -1,0 +1,69 @@
+---
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/noticias', label: 'Noticias' },
+  { href: '#eventos', label: 'Eventos' },
+  { href: '#pilotos', label: 'Pilotos' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark/80 backdrop-blur-md border-b border-light/5">
+  <nav class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 text-primary font-heading text-xl font-bold tracking-wider hover:text-primary/90 transition-colors">
+      <span class="text-2xl">🏎️</span>
+      TURBO RACING
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a href={href} class="text-sm font-medium text-light/70 hover:text-primary transition-colors uppercase tracking-wide">
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Toggle -->
+    <button
+      id="menu-toggle"
+      class="md:hidden text-light/70 hover:text-primary transition-colors"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-dark/95 backdrop-blur-md border-b border-light/5">
+    <ul class="flex flex-col px-4 py-4 gap-1">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a href={href} class="block py-3 text-sm font-medium text-light/70 hover:text-primary transition-colors uppercase tracking-wide">
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    iconOpen?.classList.toggle('hidden', isOpen);
+    iconClose?.classList.toggle('hidden', !isOpen);
+  });
+</script>
