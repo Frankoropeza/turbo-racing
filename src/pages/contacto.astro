@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+
+const offices = [
+  {
+    city: "Ciudad de México",
+    address: "Av. Vasco de Quiroga 3800, Santa Fe, 05109",
+    phone: "+52 55 1234 5678",
+    email: "cdmx@turboracing.mx",
+  },
+  {
+    city: "Monterrey",
+    address: "Av. Lázaro Cárdenas 2400, San Pedro Garza García, 66269",
+    phone: "+52 81 8765 4321",
+    email: "mty@turboracing.mx",
+  },
+  {
+    city: "Guadalajara",
+    address: "Av. Empresarios 135, Puerta de Hierro, 45116",
+    phone: "+52 33 2468 1357",
+    email: "gdl@turboracing.mx",
+  }
+];
+---
+
+<BaseLayout 
+  title="Contacto | Turbo Racing México | Sedes CDMX, MTY, GDL"
+  description="Contáctenos para cotizar eventos corporativos, unirse a la liga o soporte técnico. Sedes oficiales en Ciudad de México, Monterrey y Guadalajara."
+>
+  <!-- Hero Contacto -->
+  <section class="pt-32 pb-24 px-4 bg-secondary/10">
+    <div class="max-w-7xl mx-auto">
+      <SectionHeader 
+        badge="Red Nacional"
+        title="Contáctanos"
+        p1="Contamos con infraestructura propia y expertos asignados en las tres capitales más importantes de México. Nuestra red de respuesta técnica está a su disposición."
+        p2="Damos prioridad a solicitudes corporativas y gubernamentales a través de nuestros canales oficiales de enlace."
+        slogan="Logística e Ingeniería en todo el Territorio Nacional"
+        badgeColor="primary"
+      />
+    </div>
+  </section>
+
+  <!-- Sedes Grid -->
+  <section class="max-w-7xl mx-auto px-4 pb-24 border-b border-white/5">
+    <div class="grid md:grid-cols-3 gap-8">
+      {offices.map((office) => (
+        <div class="bg-secondary/30 border border-white/5 p-8 rounded-3xl group hover:border-primary/50 transition-all">
+          <div class="text-xs uppercase font-bold tracking-[0.3em] mb-4 text-primary">{office.city}</div>
+          <h3 class="font-heading text-xl font-bold text-light mb-6 uppercase italic">Centro Operativo</h3>
+          <ul class="space-y-4 text-sm text-light/40 font-medium">
+            <li class="flex items-start gap-3">
+              <span class="text-primary opacity-50">📍</span>
+              {office.address}
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-primary opacity-50">📞</span>
+              {office.phone}
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-primary opacity-50">✉️</span>
+              {office.email}
+            </li>
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Formulario y Mapa Mockup -->
+  <section class="py-24 px-4">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
+      <!-- Formulario -->
+      <div>
+        <h2 class="font-heading text-3xl font-bold text-light pb-8 uppercase italic">Envíe un Mensaje <span class="text-primary">al Pit Lane</span></h2>
+        <form class="space-y-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-[10px] uppercase font-bold text-light/40 tracking-widest pl-4">Nombre Completo</label>
+              <input type="text" placeholder="Ej. Alejandro Rivera" class="w-full bg-secondary/50 border border-white/10 p-4 rounded-xl text-light focus:border-primary focus:outline-none transition-all" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] uppercase font-bold text-light/40 tracking-widest pl-4">Correo Corporativo</label>
+              <input type="email" placeholder="alejandro@empresa.com" class="w-full bg-secondary/50 border border-white/10 p-4 rounded-xl text-light focus:border-primary focus:outline-none transition-all" />
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-[10px] uppercase font-bold text-light/40 tracking-widest pl-4">Servicio de Interés</label>
+            <select class="w-full bg-secondary/50 border border-white/10 p-4 rounded-xl text-light focus:border-primary focus:outline-none transition-all">
+              <option>Evento Corporativo (B2B)</option>
+              <option>Experiencia Familiar (B2C)</option>
+              <option>Inscripción Pro Liga</option>
+              <option>Catálogo / Ventas</option>
+              <option>Soporte Técnico / Pit Stop</option>
+            </select>
+          </div>
+          <div class="space-y-2">
+            <label class="text-[10px] uppercase font-bold text-light/40 tracking-widest pl-4">Mensaje / Requerimiento Especial</label>
+            <textarea rows="5" placeholder="Cuéntenos sobre su evento u objetivos técnicos..." class="w-full bg-secondary/50 border border-white/10 p-4 rounded-xl text-light focus:border-primary focus:outline-none transition-all resize-none"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-xl uppercase tracking-widest transition-all shadow-xl shadow-primary/20 hover:scale-[1.02]">
+            Solicitar Información
+          </button>
+        </form>
+      </div>
+
+      <!-- FAQ / Info Rapida -->
+      <div class="bg-secondary/30 border border-white/5 p-12 rounded-[3rem] h-fit">
+        <h3 class="font-heading text-2xl font-bold text-light uppercase mb-8 italic">Canales <span class="text-glow">Directos</span></h3>
+        <div class="space-y-8">
+          <div>
+            <h4 class="text-primary font-bold uppercase text-xs tracking-widest mb-2">WhatsApp Business</h4>
+            <p class="text-light/60 text-sm mb-4">Soporte inmediato y cotizaciones express.</p>
+            <a href="#" class="text-light font-bold hover:text-primary transition-colors">+52 55 9876 5432</a>
+          </div>
+          <div>
+            <h4 class="text-primary font-bold uppercase text-xs tracking-widest mb-2">Prensa y Alianzas</h4>
+            <p class="text-light/60 text-sm mb-4">Para colaboraciones de marca y eventos masivos.</p>
+            <a href="mailto:marketing@turboracing.mx" class="text-light font-bold hover:text-primary transition-colors">marketing@turboracing.mx</a>
+          </div>
+          <div class="pt-8 border-t border-white/10">
+            <div class="flex gap-6">
+                <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-all">IG</a>
+                <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-all">YT</a>
+                <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-all">TK</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
