@@ -1,38 +1,241 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
+import QuickNav from '../components/QuickNav.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import StatsCounter from '../components/StatsCounter.astro';
+import Methodology from '../components/Methodology.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CategoryCard from '../components/CategoryCard.astro';
 import { getCollection } from 'astro:content';
+
+const rcCarCategories = [
+  {
+    title: 'Turbo Racing',
+    category: 'Micro-Scale Pro',
+    scale: '1:76',
+    description: 'La ingeniería más pequeña del mundo. Control 100% proporcional en la palma de tu mano. Ideal para competencias de escritorio y circuitos ultra-compactos.',
+    image: '/img/categories/turbo-racing.png',
+    specs: ['USB-C Fast Charge', '40min Autonomía', 'Luces LED Reales', 'Control Proporcional']
+  },
+  {
+    title: 'Kyosho Mini-Z',
+    category: 'Precision Racing',
+    scale: '1:28',
+    description: 'El estándar de oro para el racing indoor. Chasis de alta ingeniería con componentes reemplazables y carrocerías de ultra-realismo con licencia oficial.',
+    image: '/img/categories/mini-z.png',
+    specs: ['Chasis Pro MR-03', 'RWD / AWD Opt.', 'Cientos de Autopartes', 'Syncro KT-531P']
+  },
+  {
+    title: 'Kyosho Fazer',
+    category: 'On-Road Touring',
+    scale: '1:10',
+    description: 'Fusión perfecta entre estética y rendimiento. Diseñados para devorar el asfalto con estabilidad total y un realismo visual en sus carrocerías clásicas y modernas.',
+    image: '/img/categories/fazer.png',
+    specs: ['Tracción 4WD', 'Chasis FZ02 Plt', 'Motor High Torque', 'Llantas de Agarre']
+  },
+  {
+    title: 'Traxxas Bashers',
+    category: 'Off-Road Action',
+    scale: '1:10',
+    description: 'Resistencia extrema para saltos y terrenos difíciles. Los vehículos más duraderos y rápidos diseñados para bashing agresivo en tierra, pasto o lodo.',
+    image: '/img/categories/traxxas.png',
+    specs: ['Electrónica VXL', '80+ KM/H Top', 'Waterproof Design', 'T-Maxx Ready']
+  },
+  {
+    title: 'Rock Crawlers',
+    category: 'Technical Path',
+    scale: '1:10',
+    description: 'Ingeniería enfocada en el torque y la articulación. Vencen cualquier obstáculo con precisión técnica. El arte de ir lento por donde nadie más puede.',
+    image: '/img/categories/crawler.png',
+    specs: ['Bloqueo Dif.', 'Torque Superior', 'Llantas Soft Grip', 'Portales en Eje']
+  },
+  {
+    title: 'Pro Drift',
+    category: 'Style & Slide',
+    scale: '1:10',
+    description: 'El arte del deslizamiento controlado. Chasis RWD con giroscopios electrónicos de alta precisión para las mejores trayectorias de drifting profesional.',
+    image: '/img/categories/drift.png',
+    specs: ['Tracción RWD', 'Giroscopo Adj.', 'Llantas Hard Pol', 'Ajuste de Camber']
+  }
+];
 
 const allNoticias = await getCollection('noticias', ({ data }) => !data.draft);
 const latestNoticias = allNoticias
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const eventosMX = [
+  { date: '15 MAY', event: 'GP CDMX - Drones vs RC', city: 'CDMX', location: 'Autódromo Hnos. Rodríguez' },
+  { date: '22 JUN', event: 'Rally Regiomontano', city: 'MTY', location: 'Parque Fundidora' },
+  { date: '10 JUL', event: 'Perla Tapatía Cup', city: 'GDL', location: 'Estadio Akron' },
+];
 ---
 
 <BaseLayout
-  title="Inicio"
-  description="Turbo Racing — Portal de noticias, eventos y pilotos del mundo del automovilismo. Pasión por la velocidad."
+  title="Turbo Racing | Eventos RC y Drones en México"
+  description="Turbo Racing es la empresa líder en México para la difusión del hobby RC y drones. Eventos corporativos, excursiones familiares y competencias de alta velocidad."
 >
-  <HeroSection />
+  <HeroSection ctaText="Explorar Experiencias" />
+  <QuickNav />
 
-  <!-- Últimas Noticias -->
-  <section id="ultimas-noticias" class="max-w-7xl mx-auto px-4 py-20">
-    <div class="flex items-end justify-between mb-10">
-      <div>
-        <span class="text-accent text-sm font-semibold uppercase tracking-[0.2em]">Actualidad</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-bold text-light mt-2">Últimas Noticias</h2>
+  <!-- Segmentos de Experiencia -->
+  <section id="experiencias" class="max-w-7xl mx-auto px-4 py-24">
+    <SectionHeader 
+      badge="Nuestros Servicios"
+      title="Domina la Pista"
+      p1="Profesionalizamos la pasión por el radio control en México, ofreciendo un ecosistema integral que abarca desde la logística corporativa hasta la recreación familiar de élite. Nuestras experiencias están diseñadas bajo estándares de seguridad internacional."
+      p2="Nuestras soluciones B2B y B2C se adaptan con precisión quirúrgica, respaldadas por expertos en ingeniería y pilotos certificados. Sea para fortalecer su empresa o competir en la liga profesional, Turbo Racing es su aliado estratégico."
+      slogan="Donde la Ingeniería se encuentra con la Adrenalina Pura"
+      badgeColor="primary"
+    />
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Corporativo -->
+      <div class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2">
+        <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">Turbo Corporate</h3>
+        <p class="text-light/60 mb-6 font-medium">
+          Team building de alto impacto. Carreras de relevos y retos técnicos para empresas que buscan innovación y adrenalina.
+        </p>
+        <ul class="text-sm text-light/40 space-y-2 mb-8">
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Telemetría en vivo</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Aftermovies 4K</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Cobertura nacional</li>
+        </ul>
+        <a href="#contacto" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Saber más &rarr;</a>
       </div>
-      <a href="/noticias" class="hidden sm:inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium transition-colors">
-        Ver todas
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-    </div>
 
-    {latestNoticias.length > 0 ? (
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Familias -->
+      <div class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2">
+        <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">Family Adrenaline</h3>
+        <p class="text-light/60 mb-6 font-medium">
+          Excursiones de fin de semana con renta de equipo. Diversión garantizada para todas las edades con seguridad total.
+        </p>
+        <ul class="text-sm text-light/40 space-y-2 mb-8">
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Equipos Ready-to-Run</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Instructores Pro</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Pistas seguras</li>
+        </ul>
+        <a href="#contacto" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Saber más &rarr;</a>
+      </div>
+
+      <!-- Pro Enthusiasts -->
+      <div class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2">
+        <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">Pro Liga México</h3>
+        <p class="text-light/60 mb-6 font-medium">
+          Comunidad para expertos. Ranking nacional, torneos FPV y soporte técnico especializado "Pit Stop".
+        </p>
+        <ul class="text-sm text-light/40 space-y-2 mb-8">
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Ranking Digital</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Refacciones en pista</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Torneos oficiales</li>
+        </ul>
+        <a href="#contacto" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Saber más &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <StatsCounter />
+
+  <!-- Turbo Edge (Why Us) -->
+  <section class="bg-primary py-24 text-white overflow-hidden relative">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute -right-20 -top-20 text-[20rem] font-bold font-heading italic leading-none select-none">TURBO</div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="font-heading text-5xl md:text-6xl font-bold mb-8 uppercase italic leading-none">
+            ¿Por qué <br /> <span class="text-secondary">Turbo Racing?</span>
+          </h2>
+          <p class="text-xl opacity-90 mb-10 font-medium">
+            No solo vendemos equipo, creamos la atmósfera. Somos el único referente en México que unifica comunidad, soporte y eventos de clase mundial.
+          </p>
+          <div class="grid grid-cols-2 gap-8 text-center md:text-left">
+            <div>
+              <div class="text-4xl font-bold font-heading">100%</div>
+              <div class="text-sm uppercase font-bold opacity-80">Cobertura Nacional</div>
+            </div>
+            <div>
+              <div class="text-4xl font-bold font-heading">+50</div>
+              <div class="text-sm uppercase font-bold opacity-80">Eventos Anuales</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl">
+          <h3 class="font-heading text-2xl font-bold mb-6 uppercase">Turbo Pit Stop</h3>
+          <p class="mb-8 opacity-80">Si se rompe, lo arreglamos. Contamos con el stock de refacciones más grande de México para marcas líderes como Traxxas, DJI y Arrma.</p>
+          <button class="w-full bg-white text-primary font-bold py-4 rounded-xl uppercase tracking-widest hover:bg-secondary hover:text-white transition-all">Ver Refacciones</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Methodology />
+  <TrustBadges />
+
+  <!-- Próximos Eventos México -->
+  <section id="eventos" class="bg-dark px-4 py-24">
+    <div class="max-w-7xl mx-auto">
+      <SectionHeader 
+        badge="Calendario 2026"
+        title="Próximas Paradas"
+        p1="Recorremos las ciudades más estratégicas del país para llevar la emoción del RC y FPV a una escala corporativa sin precedentes en México, con paradas en CDMX, Monterrey y Guadalajara."
+        p2="Participe en circuitos diseñados por expertos y dinámicas de networking exclusivas para el sector profesional. Nuestra presencia nacional garantiza una ejecución impecable en cada sede."
+        badgeColor="accent"
+      />
+
+      <div class="space-y-4">
+        {[
+          { date: '15 Abr', city: 'Ciudad de México', location: 'Parque La Mexicana', event: 'Corporate Drone Challenge' },
+          { date: '02 May', city: 'Monterrey', location: 'La Huasteca', event: 'Off-Road Rally Adventure' },
+          { date: '20 Jun', city: 'Guadalajara', location: 'Expo Guadalajara', event: 'Nacional FPV Racing' }
+        ].map((event) => (
+          <div class="group flex flex-col md:flex-row items-center justify-between p-8 bg-secondary/20 border border-white/5 rounded-2xl hover:border-primary/40 hover:bg-secondary/40 transition-all cursor-pointer">
+            <div class="flex items-center gap-8 mb-4 md:mb-0">
+              <div class="text-primary font-heading text-3xl font-bold w-20">{event.date}</div>
+              <div>
+                <h3 class="font-heading text-xl font-bold text-light uppercase">{event.event}</h3>
+                <p class="text-light/40">{event.city} | {event.location}</p>
+              </div>
+            </div>
+            <button class="bg-white/5 group-hover:bg-primary text-light group-hover:text-white px-6 py-3 rounded-lg font-bold transition-all uppercase tracking-wider text-sm">
+              Reservar Lugar
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Noticias Destacadas -->
+  {latestNoticias.length > 0 && (
+    <section id="ultimas-noticias" class="max-w-7xl mx-auto px-4 py-24">
+      <SectionHeader 
+        badge="Insights"
+        title="Noticias de Pista"
+        p1="Manténgase informado sobre las últimas tendencias tecnológicas y la normativa vigente para drones en México. Compartimos análisis técnicos para maximizar el rendimiento de sus unidades."
+        p2="Nuestros insights están curados para el profesional que busca eficiencia operativa y el entusiasta que persigue la perfección técnica. Siga de cerca el panorama industrial del hobby."
+        badgeColor="neutral"
+      />
+
+      <div class="grid md:grid-cols-3 gap-8">
         {latestNoticias.map((noticia) => (
           <ArticleCard
             title={noticia.data.title}
@@ -44,61 +247,27 @@ const latestNoticias = allNoticias
           />
         ))}
       </div>
-    ) : (
-      <p class="text-light/50 text-center py-12">Próximamente publicaremos nuestras primeras noticias.</p>
-    )}
+    </section>
+  )}
 
-    <div class="sm:hidden mt-8 text-center">
-      <a href="/noticias" class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium transition-colors">
-        Ver todas las noticias &rarr;
-      </a>
-    </div>
-  </section>
-
-  <!-- Próximos Eventos -->
-  <section id="eventos" class="bg-secondary/30 border-y border-light/5">
-    <div class="max-w-7xl mx-auto px-4 py-20">
-      <div class="text-center mb-12">
-        <span class="text-accent text-sm font-semibold uppercase tracking-[0.2em]">Calendario</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-bold text-light mt-2">Próximos Eventos</h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-dark/50 border border-light/5 rounded-xl p-6 text-center hover:border-accent/30 transition-colors">
-          <div class="text-accent font-heading text-2xl font-bold mb-1">15</div>
-          <div class="text-light/40 text-sm uppercase tracking-wide mb-4">Abril 2026</div>
-          <h3 class="font-heading text-lg font-semibold text-light mb-2">Gran Premio de Primavera</h3>
-          <p class="text-sm text-light/50">Circuito de Jarama, Madrid</p>
-        </div>
-        <div class="bg-dark/50 border border-light/5 rounded-xl p-6 text-center hover:border-accent/30 transition-colors">
-          <div class="text-accent font-heading text-2xl font-bold mb-1">02</div>
-          <div class="text-light/40 text-sm uppercase tracking-wide mb-4">Mayo 2026</div>
-          <h3 class="font-heading text-lg font-semibold text-light mb-2">Turbo Racing Open Day</h3>
-          <p class="text-sm text-light/50">Taller Turbo Racing, Madrid</p>
-        </div>
-        <div class="bg-dark/50 border border-light/5 rounded-xl p-6 text-center hover:border-accent/30 transition-colors">
-          <div class="text-accent font-heading text-2xl font-bold mb-1">20</div>
-          <div class="text-light/40 text-sm uppercase tracking-wide mb-4">Junio 2026</div>
-          <h3 class="font-heading text-lg font-semibold text-light mb-2">Copa de Verano</h3>
-          <p class="text-sm text-light/50">Circuit de Barcelona-Catalunya</p>
-        </div>
+  <!-- Footer CTA -->
+  <section id="contacto" class="max-w-7xl mx-auto px-4 py-24 text-center">
+    <div class="bg-gradient-to-br from-secondary/50 to-dark border border-white/10 p-16 rounded-[3rem] relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] rounded-full"></div>
+      <h2 class="font-heading text-5xl md:text-6xl font-bold text-light mb-8 uppercase italic tracking-tighter">
+        ¿Tu empresa está <br /> <span class="text-primary">al siguiente nivel?</span>
+      </h2>
+      <p class="text-light/60 max-w-xl mx-auto mb-12 text-lg font-medium">
+        Contáctanos hoy mismo para cotizar eventos a la medida, excursiones familiares o unirte a la liga nacional de pilotos.
+      </p>
+      <div class="flex flex-wrap justify-center gap-6">
+        <button class="bg-primary hover:bg-primary/90 text-white font-bold px-12 py-5 rounded-xl transition-all hover:scale-105 shadow-xl shadow-primary/20 uppercase tracking-widest">
+          Hablar con un Experto
+        </button>
+        <button class="border border-white/20 hover:bg-white/10 text-white font-bold px-12 py-5 rounded-xl transition-all uppercase tracking-widest">
+          Suscrito al Newsletter
+        </button>
       </div>
     </div>
-  </section>
-
-  <!-- CTA Final -->
-  <section class="max-w-7xl mx-auto px-4 py-20 text-center">
-    <h2 class="font-heading text-3xl md:text-4xl font-bold text-light mb-4">
-      ¿Listo para sentir la adrenalina?
-    </h2>
-    <p class="text-light/50 max-w-xl mx-auto mb-8">
-      Únete a la comunidad Turbo Racing y no te pierdas ninguna novedad del mundo del automovilismo.
-    </p>
-    <a
-      href="/noticias"
-      class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:scale-105 shadow-lg shadow-primary/25"
-    >
-      Explorar Noticias
-    </a>
   </section>
 </BaseLayout>

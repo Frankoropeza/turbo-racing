@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  category: string;
+  scale: string;
+  specs: string[];
+  image: string;
+  description: string;
+}
+
+const { title, category, scale, specs, image, description } = Astro.props;
+---
+
+<div class="group bg-secondary/30 border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full">
+  <!-- Image Container -->
+  <div class="relative aspect-video overflow-hidden">
+    <img 
+      src={image} 
+      alt={title} 
+      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-60"></div>
+    
+    <!-- Scale Badge -->
+    <div class="absolute top-4 right-4 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
+      Escala {scale}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-8 flex flex-col flex-1">
+    <span class="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-2">{category}</span>
+    <h3 class="font-heading text-2xl font-bold text-light uppercase mb-4 tracking-tighter italic leading-none group-hover:text-primary transition-colors">
+      {title}
+    </h3>
+    
+    <p class="text-light/50 text-sm leading-relaxed mb-6 flex-1 line-clamp-3">
+      {description}
+    </p>
+
+    <!-- Technical Specs -->
+    <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-8 border-t border-white/5 pt-6">
+      {specs.map((spec) => (
+        <div class="flex items-center gap-2">
+          <div class="w-1 h-1 bg-primary rounded-full"></div>
+          <span class="text-[10px] text-light/40 uppercase font-bold tracking-wider">{spec}</span>
+        </div>
+      ))}
+    </div>
+
+    <button class="w-full py-4 border border-white/10 hover:border-primary hover:bg-primary text-light hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-lg">
+      Explorar Gama
+    </button>
+  </div>
+</div>

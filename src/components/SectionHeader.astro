@@ -1,0 +1,56 @@
+---
+interface Props {
+  badge: string;
+  title: string;
+  p1: string;
+  p2: string;
+  slogan?: string;
+  badgeColor?: string; // e.g., 'primary', 'accent', 'light/20'
+}
+
+const { 
+  badge, 
+  title, 
+  p1, 
+  p2, 
+  slogan,
+  badgeColor = 'primary' 
+} = Astro.props;
+
+const colorClasses: Record<string, string> = {
+  primary: 'text-primary border-primary/20 bg-primary/5',
+  accent: 'text-accent border-accent/20 bg-accent/5',
+  neutral: 'text-light border-light/10 bg-white/5',
+};
+
+const currentBg = colorClasses[badgeColor] || colorClasses.primary;
+---
+
+<div class="mb-16 border-b border-white/5 pb-16">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    <!-- Columna 1: Identificación (Izquierda) -->
+    <div class="lg:sticky lg:top-24">
+      <span class={`inline-block px-4 py-1.5 rounded-full border text-[9px] font-bold uppercase tracking-[0.4em] mb-6 ${currentBg}`}>
+        {badge}
+      </span>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-light uppercase leading-[0.95] tracking-tighter italic text-glow">
+        {title}
+      </h2>
+      {slogan && (
+        <p class="text-primary text-lg md:text-xl font-medium mt-4 tracking-wide">
+          {slogan}
+        </p>
+      )}
+    </div>
+
+    <!-- Columna 2: Marketing y SEO (Derecha) -->
+    <div class="space-y-6 text-light/60 text-sm md:text-base leading-relaxed max-w-xl font-normal tracking-wide">
+      <p>
+        {p1}
+      </p>
+      <p>
+        {p2}
+      </p>
+    </div>
+  </div>
+</div>

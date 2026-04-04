@@ -14,44 +14,45 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-  <!-- Background gradient -->
-  <div class="absolute inset-0 bg-gradient-to-br from-dark via-secondary to-dark"></div>
-  <!-- Racing stripe accent -->
-  <div class="absolute inset-0 opacity-5">
-    <div class="absolute top-0 left-1/4 w-px h-full bg-primary"></div>
-    <div class="absolute top-0 left-1/2 w-1 h-full bg-primary"></div>
-    <div class="absolute top-0 left-3/4 w-px h-full bg-primary"></div>
+<section class="relative min-h-[70vh] flex items-center overflow-hidden">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="/hero.png" 
+      alt="Turbo Racing RC and Drone Action" 
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-dark/60 to-transparent"></div>
   </div>
-  <!-- Glow effect -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]"></div>
 
-  <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
-    <span class="inline-block text-accent text-sm font-semibold uppercase tracking-[0.3em] mb-6">
-      Automovilismo de alto rendimiento
-    </span>
-    <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-light leading-[1.1] mb-6">
-      {title}
-    </h1>
-    <p class="text-lg md:text-xl text-light/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-      {subtitle}
-    </p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a
-        href={ctaHref}
-        class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all hover:scale-105 shadow-lg shadow-primary/25"
-      >
-        {ctaText}
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-      <a
-        href="#ultimas-noticias"
-        class="inline-flex items-center gap-2 border border-light/20 hover:border-primary/50 text-light/80 hover:text-light font-medium px-8 py-4 rounded-lg transition-all"
-      >
-        Explorar
-      </a>
+  <div class="relative z-10 max-w-7xl mx-auto px-4 py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- Columna 1: Branding y Título -->
+      <div class="text-left">
+        <span class="inline-block text-primary text-[10px] font-bold uppercase tracking-[0.4em] mb-6 bg-dark/60 backdrop-blur-sm px-5 py-2 rounded-full border border-primary/30">
+          Adrenalina Radio Controlada en México
+        </span>
+        <h1 class="font-heading text-7xl sm:text-8xl md:text-9xl font-bold text-light leading-[0.85] uppercase italic tracking-tighter mb-8 transition-all">
+          Turbo <br class="hidden md:block" /> <span class="text-primary drop-shadow-[0_10px_10px_rgba(249,115,22,0.3)]">Racing</span>
+        </h1>
+        <div class="flex items-center gap-4 text-light/30 font-bold uppercase tracking-widest text-[9px]">
+          <span class="w-8 h-0.5 bg-primary/50"></span>
+          Ingeniería de Emoción Nacional
+        </div>
+      </div>
+
+      <!-- Columna 2: Marketing Profesional -->
+      <div class="space-y-10">
+        <div class="space-y-6 text-light/50 text-sm lg:text-base leading-relaxed font-normal tracking-wide max-w-lg">
+          <p>
+            <strong class="text-primary font-bold tracking-wide opacity-80">Turbo Racing</strong> redefine la experiencia del radio control en México, transformando un hobby apasionante en una plataforma de eventos corporativos y recreativos de élite. Con un enfoque riguroso en la <span class="text-light opacity-80 font-bold">seguridad</span> y la <span class="text-light opacity-80 font-bold">innovación tecnológica</span>, somos el único proveedor nacional que integra drones FPV de última generación y autos RC de alto rendimiento en dinámicas diseñadas para fomentar la integración y el liderazgo.
+          </p>
+          <p>
+            Nuestra infraestructura operativa nos permite llevar la adrenalina a cualquier rincón del país, respaldada por un ecosistema integral de soporte que garantiza la continuidad de cada evento. Desde excursiones extremas hasta circuitos personalizados, orquestamos emociones de alta velocidad con el sello de profesionalismo que su organización merece.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

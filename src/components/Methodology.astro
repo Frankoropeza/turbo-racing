@@ -1,0 +1,50 @@
+---
+const steps = [
+  {
+    title: 'Consultoría Especializada',
+    description: 'Analizamos tus objetivos y el tipo de terreno para recomendar la mejor configuración técnica.',
+    icon: '📊'
+  },
+  {
+    title: 'Planificación Técnica',
+    description: 'Diseñamos el circuito, gestionamos permisos (AFAC) y preparamos la logística nacional.',
+    icon: '⚙️'
+  },
+  {
+    title: 'Ejecución y Soporte',
+    description: 'Llevamos el equipo, montamos la pista y brindamos soporte técnico pro en tiempo real.',
+    icon: '🏁'
+  }
+];
+---
+
+<section class="py-24 bg-dark">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-16">
+      <span class="text-primary text-sm font-bold uppercase tracking-[0.4em]">¿Cómo trabajamos?</span>
+      <h2 class="font-heading text-4xl md:text-5xl font-bold text-light mt-6 uppercase italic">Proceso Profesional Turbo</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-12 relative">
+      <!-- Line connecting steps -->
+      <div class="hidden md:block absolute top-[2.25rem] left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary via-accent to-primary opacity-20"></div>
+      
+      {steps.map((step, index) => (
+        <div class="relative text-center group">
+          <div class="w-20 h-20 bg-secondary border-2 border-primary/30 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:border-primary group-hover:scale-110 transition-all z-10 relative bg-dark">
+            <span class="text-3xl grayscale group-hover:grayscale-0 transition-all">{step.icon}</span>
+            <div class="absolute -top-2 -right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-xs font-bold text-white italic">
+              0{index + 1}
+            </div>
+          </div>
+          <h3 class="font-heading text-xl md:text-2xl font-bold text-light mb-4 uppercase tracking-tight">
+            {step.title}
+          </h3>
+          <p class="text-light/50 text-sm md:text-base max-w-xs mx-auto leading-relaxed">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

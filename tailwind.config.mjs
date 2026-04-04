@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#DC2626',
-        secondary: '#111111',
-        accent: '#F59E0B',
-        dark: '#0A0A0A',
-        light: '#F5F5F5',
+        primary: '#F97316', // Vibrant Orange
+        secondary: '#1E293B', // Slate Dark Blue
+        accent: '#2563EB', // Racer Blue
+        dark: '#0F172A',
+        light: '#F8FAFC',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

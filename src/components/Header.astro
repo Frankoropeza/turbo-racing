@@ -1,9 +1,9 @@
 ---
 const navLinks = [
   { href: '/', label: 'Inicio' },
+  { href: '#experiencias', label: 'Experiencias' },
+  { href: '#eventos', label: 'Eventos MX' },
   { href: '/noticias', label: 'Noticias' },
-  { href: '#eventos', label: 'Eventos' },
-  { href: '#pilotos', label: 'Pilotos' },
   { href: '#contacto', label: 'Contacto' },
 ];
 ---
@@ -15,8 +15,7 @@ const navLinks = [
       TURBO RACING
     </a>
 
-    <!-- Desktop Nav -->
-    <ul class="hidden md:flex items-center gap-8">
+    <ul class="hidden lg:flex items-center gap-8">
       {navLinks.map(({ href, label }) => (
         <li>
           <a href={href} class="text-sm font-medium text-light/70 hover:text-primary transition-colors uppercase tracking-wide">
@@ -25,6 +24,15 @@ const navLinks = [
         </li>
       ))}
     </ul>
+
+    <div class="hidden md:flex items-center gap-4">
+      <a 
+        href="#contacto" 
+        class="bg-primary hover:bg-primary/90 text-white text-xs font-bold px-6 py-2.5 rounded-full transition-all uppercase tracking-widest shadow-lg shadow-primary/20"
+      >
+        Cotizar Ahora
+      </a>
+    </div>
 
     <!-- Mobile Toggle -->
     <button

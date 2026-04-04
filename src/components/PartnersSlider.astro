@@ -1,0 +1,40 @@
+---
+const partners = [
+  { name: 'DJI', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/DJI_Logo.svg' },
+  { name: 'Traxxas', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Traxxas_logo.svg' },
+  { name: 'Arrma', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Arrma_RC_Logo.svg' },
+  { name: 'Lipo', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/LiPo_logo.svg' },
+  { name: 'FPV', logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/FPV_Logo.svg' },
+];
+---
+
+<section class="bg-dark/50 border-b border-white/5 py-12 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 mb-8 text-center md:text-left">
+    <span class="text-xs font-bold text-light/20 uppercase tracking-[0.5em]">Nuestros Aliados Estratégicos</span>
+  </div>
+  
+  <div class="relative flex overflow-x-hidden">
+    <!-- First instance of the slider -->
+    <div class="flex animate-marquee whitespace-nowrap items-center gap-16 md:gap-32 px-4">
+      {partners.concat(partners).map((partner) => (
+        <div class="flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-30 hover:opacity-100 h-12 md:h-16 w-32 md:w-48">
+          <img 
+            src={partner.logo} 
+            alt={partner.name}
+            class="max-h-full max-w-full object-contain"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+</style>
