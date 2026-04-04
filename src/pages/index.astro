@@ -2,12 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import QuickNav from '../components/QuickNav.astro';
-import ArticleCard from '../components/ArticleCard.astro';
 import StatsCounter from '../components/StatsCounter.astro';
 import Methodology from '../components/Methodology.astro';
 import TrustBadges from '../components/TrustBadges.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import CategoryCard from '../components/CategoryCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
 
 const rcCarCategories = [
@@ -16,7 +16,7 @@ const rcCarCategories = [
     category: 'Micro-Scale Pro',
     scale: '1:76',
     description: 'La ingeniería más pequeña del mundo. Control 100% proporcional en la palma de tu mano. Ideal para competencias de escritorio y circuitos ultra-compactos.',
-    image: '/img/categories/turbo-racing.png',
+    image: 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&q=80',
     specs: ['USB-C Fast Charge', '40min Autonomía', 'Luces LED Reales', 'Control Proporcional']
   },
   {
@@ -24,7 +24,7 @@ const rcCarCategories = [
     category: 'Precision Racing',
     scale: '1:28',
     description: 'El estándar de oro para el racing indoor. Chasis de alta ingeniería con componentes reemplazables y carrocerías de ultra-realismo con licencia oficial.',
-    image: '/img/categories/mini-z.png',
+    image: 'https://images.unsplash.com/photo-1532339142463-fd0a8979791a?auto=format&fit=crop&q=80',
     specs: ['Chasis Pro MR-03', 'RWD / AWD Opt.', 'Cientos de Autopartes', 'Syncro KT-531P']
   },
   {
@@ -32,7 +32,7 @@ const rcCarCategories = [
     category: 'On-Road Touring',
     scale: '1:10',
     description: 'Fusión perfecta entre estética y rendimiento. Diseñados para devorar el asfalto con estabilidad total y un realismo visual en sus carrocerías clásicas y modernas.',
-    image: '/img/categories/fazer.png',
+    image: 'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&q=80',
     specs: ['Tracción 4WD', 'Chasis FZ02 Plt', 'Motor High Torque', 'Llantas de Agarre']
   },
   {
@@ -40,7 +40,7 @@ const rcCarCategories = [
     category: 'Off-Road Action',
     scale: '1:10',
     description: 'Resistencia extrema para saltos y terrenos difíciles. Los vehículos más duraderos y rápidos diseñados para bashing agresivo en tierra, pasto o lodo.',
-    image: '/img/categories/traxxas.png',
+    image: 'https://images.unsplash.com/photo-1594787317351-7429d8a8467a?auto=format&fit=crop&q=80',
     specs: ['Electrónica VXL', '80+ KM/H Top', 'Waterproof Design', 'T-Maxx Ready']
   },
   {
@@ -48,7 +48,7 @@ const rcCarCategories = [
     category: 'Technical Path',
     scale: '1:10',
     description: 'Ingeniería enfocada en el torque y la articulación. Vencen cualquier obstáculo con precisión técnica. El arte de ir lento por donde nadie más puede.',
-    image: '/img/categories/crawler.png',
+    image: 'https://images.unsplash.com/photo-1533558701576-23c65e42cddf?auto=format&fit=crop&q=80',
     specs: ['Bloqueo Dif.', 'Torque Superior', 'Llantas Soft Grip', 'Portales en Eje']
   },
   {
@@ -56,8 +56,59 @@ const rcCarCategories = [
     category: 'Style & Slide',
     scale: '1:10',
     description: 'El arte del deslizamiento controlado. Chasis RWD con giroscopios electrónicos de alta precisión para las mejores trayectorias de drifting profesional.',
-    image: '/img/categories/drift.png',
+    image: 'https://images.unsplash.com/photo-1547744152-14d985cb937f?auto=format&fit=crop&q=80',
     specs: ['Tracción RWD', 'Giroscopo Adj.', 'Llantas Hard Pol', 'Ajuste de Camber']
+  }
+];
+
+const droneCategories = [
+  {
+    title: 'FPV Racing Pro',
+    category: 'Competencia Speed',
+    scale: '5-inch Class',
+    description: 'Adrenalina pura en primera persona. Construidos para la máxima agilidad y velocidad en circuitos técnicos. El estándar de la Liga Nacional FPV.',
+    image: 'https://images.unsplash.com/photo-1527977966376-1c841cf93ad2?auto=format&fit=crop&q=80',
+    specs: ['160+ KM/H Top', 'Frame Carbono 5"', 'Latencia < 20ms', 'AFAC: Micro UAV']
+  },
+  {
+    title: 'Cinewhoop Cinema',
+    category: 'Producción Audiovisual',
+    scale: '3-inch Duct',
+    description: 'Capturas cinematográficas imposibles. Drones con hélices protegidas para vuelos seguros en interiores y cerca de personas. Calidad 4K/60fps.',
+    image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80',
+    specs: ['Hélices Protegidas', '4K / 60fps HDR', 'Vuelo Indoor Pro', 'AFAC: Micro UAV']
+  },
+  {
+    title: 'Digital Cinema O3',
+    category: 'High-End FPV',
+    scale: 'Middle Range',
+    description: 'La revolución digital en tus ojos. Equipados con el sistema DJI O3 para una transmisión de video cristalina y un rango de operación extendido.',
+    image: 'https://images.unsplash.com/photo-1473960104312-3273ed4bb08a?auto=format&fit=crop&q=80',
+    specs: ['Transmisión O3 HD', 'Rango 10KM (FCC)', 'GPS Rescue Alt.', 'AFAC: Micro UAV']
+  },
+  {
+    title: 'Mini / Ultralight',
+    category: 'Libertad de Vuelo',
+    scale: 'Sub-250g',
+    description: 'Máximo rendimiento sin complicaciones legales. Drones de menos de 250g que no requieren registro ante AFAC para uso recreativo en México.',
+    image: 'https://images.unsplash.com/photo-1521749831539-40cd57902d5e?auto=format&fit=crop&q=80',
+    specs: ['Peso < 250g', 'Sin Registro AFAC', 'Autonomía 30min', 'Grabación 4K']
+  },
+  {
+    title: 'Long Range / Explorer',
+    category: 'Exploración Total',
+    scale: '7-inch Class',
+    description: 'Ingeniería diseñada para largas distancias. Marcos optimizados para eficiencia energética y sistemas de navegación GPS avanzada para retorno seguro.',
+    image: 'https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&q=80',
+    specs: ['Vuelo 45min+', 'Navegación GPS', 'Enlace 20KM+', 'AFAC: Ligero UAV']
+  },
+  {
+    title: 'Enterprise / Industrial',
+    category: 'Soluciones B2B',
+    scale: 'Industrial Scale',
+    description: 'Herramientas de precisión para la industria mexicana. Inspección térmica, seguridad y mapeo fotogramétrico con sensores de alta tecnología.',
+    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80',
+    specs: ['Sensor Térmico', 'Zoom Óptico 30x', 'Protección IP45', 'AFAC: Ligero UAV']
   }
 ];
 
@@ -65,12 +116,6 @@ const allNoticias = await getCollection('noticias', ({ data }) => !data.draft);
 const latestNoticias = allNoticias
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
-
-const eventosMX = [
-  { date: '15 MAY', event: 'GP CDMX - Drones vs RC', city: 'CDMX', location: 'Autódromo Hnos. Rodríguez' },
-  { date: '22 JUN', event: 'Rally Regiomontano', city: 'MTY', location: 'Parque Fundidora' },
-  { date: '10 JUL', event: 'Perla Tapatía Cup', city: 'GDL', location: 'Estadio Akron' },
-];
 ---
 
 <BaseLayout
@@ -139,14 +184,33 @@ const eventosMX = [
         </div>
         <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">Pro Liga México</h3>
         <p class="text-light/60 mb-6 font-medium">
-          Comunidad para expertos. Ranking nacional, torneos FPV y soporte técnico especializado "Pit Stop".
+          La arena para los expertos. Competencias oficiales de FPV Racing y RC Drift con ranking nacional y premios.
         </p>
         <ul class="text-sm text-light/40 space-y-2 mb-8">
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Ranking Digital</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Refacciones en pista</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Torneos oficiales</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Cronometraje MyLaps</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Pistas homologadas</li>
+          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Transmisión en vivo</li>
         </ul>
-        <a href="#contacto" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Saber más &rarr;</a>
+        <a href="#contacto" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Unirse a la liga &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catálogo de Categorías: CARROS RC -->
+  <section id="carros-rc" class="bg-secondary/20 py-24 px-4 border-y border-white/5">
+    <div class="max-w-7xl mx-auto">
+      <SectionHeader 
+        badge="Catálogo Técnico"
+        title="Ingeniería RC"
+        p1="Explora nuestra selección curada de vehículos de radio control, categorizados por su rendimiento y especialidad técnica. Desde la precisión micro hasta el dominio off-road."
+        p2="Cada categoría representa un ecosistema único con soporte completo de refacciones y comunidad dedicada en México."
+        badgeColor="neutral"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {rcCarCategories.map((cat) => (
+          <CategoryCard {...cat} />
+        ))}
       </div>
     </div>
   </section>
