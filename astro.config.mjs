@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://turboracing.com',
+  site: 'https://turbo-racing.mx',
   integrations: [mdx(), sitemap(), tailwind()],
   image: {
     service: {
