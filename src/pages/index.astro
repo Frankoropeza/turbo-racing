@@ -125,6 +125,26 @@ const latestNoticias = allNoticias
   <HeroSection ctaText="Explorar Experiencias" />
   <QuickNav />
 
+  <!-- Catálogo de Categorías: DRONES PRO -->
+  <section id="drones-pro" class="py-24 px-4 bg-dark">
+    <div class="max-w-7xl mx-auto">
+      <SectionHeader 
+        badge="División Aérea"
+        title="Drones Pro"
+        p1="Llevamos la cinematografía y el racing al siguiente nivel. Equipos de alto rendimiento configurados bajo los estándares de la AFAC para operaciones seguras en México."
+        p2="Desde vuelos tácticos indoor hasta inspección industrial térmica, nuestra flota está lista para cualquier desafío aéreo."
+        slogan="El Cielo no es el Límite, es nuestra Pista"
+        badgeColor="accent"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {droneCategories.map((cat) => (
+          <CategoryCard {...cat} />
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Segmentos de Experiencia -->
   <section id="experiencias" class="max-w-7xl mx-auto px-4 py-24">
     <SectionHeader 
