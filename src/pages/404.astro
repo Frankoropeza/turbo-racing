@@ -1,19 +1,18 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Boton from '@components/Boton.astro';
 ---
 
-<BaseLayout title="Página no encontrada" description="La página que buscas no existe.">
-  <section class="min-h-[60vh] flex items-center justify-center px-4">
+<BaseLayout seo={{ tipo: 'error', title: 'Página no encontrada', description: 'La página que buscas no existe o cambió de dirección. Vuelve al inicio de Turbo Racing o explora nuestros servicios.', path: '/404/', noindex: true }}>
+  <section class="min-h-[70vh] flex items-center justify-center px-4 pt-16">
     <div class="text-center">
-      <span class="text-8xl mb-6 block">🏁</span>
+      <span class="text-8xl mb-6 block" aria-hidden="true">🏁</span>
       <h1 class="font-heading text-6xl font-bold text-primary mb-4">404</h1>
-      <p class="text-xl text-light/60 mb-8">Esta página se ha salido de pista.</p>
-      <a
-        href="/"
-        class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-lg transition-all"
-      >
-        Volver al inicio
-      </a>
+      <p class="text-xl text-light/75 mb-8">Esta página se salió de la pista.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <Boton href="/">Volver al inicio</Boton>
+        <Boton href="/contacto/" estilo="contorno">Contacto</Boton>
+      </div>
     </div>
   </section>
 </BaseLayout>

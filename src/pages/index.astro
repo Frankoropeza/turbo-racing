@@ -1,357 +1,182 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSection from '../components/HeroSection.astro';
-import QuickNav from '../components/QuickNav.astro';
-import StatsCounter from '../components/StatsCounter.astro';
-import Methodology from '../components/Methodology.astro';
-import TrustBadges from '../components/TrustBadges.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import CategoryCard from '../components/CategoryCard.astro';
-import ArticleCard from '../components/ArticleCard.astro';
-import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import QuickNav from '@components/QuickNav.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import CategoryCard from '@components/CategoryCard.astro';
+import ArticleCard from '@components/ArticleCard.astro';
+import Methodology from '@components/Methodology.astro';
+import ServiceIcon from '@components/ServiceIcon.astro';
+import Boton from '@components/Boton.astro';
+import CtaFinal from '@components/CtaFinal.astro';
+import { fechaMx } from '@lib/seo';
 
-const rcCarCategories = [
-  {
-    title: 'Turbo Racing',
-    category: 'Micro-Scale Pro',
-    scale: '1:76',
-    description: 'La ingeniería más pequeña del mundo. Control 100% proporcional en la palma de tu mano. Ideal para competencias de escritorio y circuitos ultra-compactos.',
-    image: 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&q=80',
-    specs: ['USB-C Fast Charge', '40min Autonomía', 'Luces LED Reales', 'Control Proporcional']
-  },
-  {
-    title: 'Kyosho Mini-Z',
-    category: 'Precision Racing',
-    scale: '1:28',
-    description: 'El estándar de oro para el racing indoor. Chasis de alta ingeniería con componentes reemplazables y carrocerías de ultra-realismo con licencia oficial.',
-    image: 'https://images.unsplash.com/photo-1532339142463-fd0a8979791a?auto=format&fit=crop&q=80',
-    specs: ['Chasis Pro MR-03', 'RWD / AWD Opt.', 'Cientos de Autopartes', 'Syncro KT-531P']
-  },
-  {
-    title: 'Kyosho Fazer',
-    category: 'On-Road Touring',
-    scale: '1:10',
-    description: 'Fusión perfecta entre estética y rendimiento. Diseñados para devorar el asfalto con estabilidad total y un realismo visual en sus carrocerías clásicas y modernas.',
-    image: 'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&q=80',
-    specs: ['Tracción 4WD', 'Chasis FZ02 Plt', 'Motor High Torque', 'Llantas de Agarre']
-  },
-  {
-    title: 'Traxxas Bashers',
-    category: 'Off-Road Action',
-    scale: '1:10',
-    description: 'Resistencia extrema para saltos y terrenos difíciles. Los vehículos más duraderos y rápidos diseñados para bashing agresivo en tierra, pasto o lodo.',
-    image: 'https://images.unsplash.com/photo-1594787317351-7429d8a8467a?auto=format&fit=crop&q=80',
-    specs: ['Electrónica VXL', '80+ KM/H Top', 'Waterproof Design', 'T-Maxx Ready']
-  },
-  {
-    title: 'Rock Crawlers',
-    category: 'Technical Path',
-    scale: '1:10',
-    description: 'Ingeniería enfocada en el torque y la articulación. Vencen cualquier obstáculo con precisión técnica. El arte de ir lento por donde nadie más puede.',
-    image: 'https://images.unsplash.com/photo-1533558701576-23c65e42cddf?auto=format&fit=crop&q=80',
-    specs: ['Bloqueo Dif.', 'Torque Superior', 'Llantas Soft Grip', 'Portales en Eje']
-  },
-  {
-    title: 'Pro Drift',
-    category: 'Style & Slide',
-    scale: '1:10',
-    description: 'El arte del deslizamiento controlado. Chasis RWD con giroscopios electrónicos de alta precisión para las mejores trayectorias de drifting profesional.',
-    image: 'https://images.unsplash.com/photo-1547744152-14d985cb937f?auto=format&fit=crop&q=80',
-    specs: ['Tracción RWD', 'Giroscopo Adj.', 'Llantas Hard Pol', 'Ajuste de Camber']
-  }
-];
+const pagina = await getEntry('paginas', 'inicio');
+if (!pagina) throw new Error('Falta src/content/paginas/inicio.md');
+const { hero, accesos = [], secciones = {}, porque, proceso, cta } = pagina.data;
+if (!hero) throw new Error('inicio.md requiere hero');
+const { Content: TextoHero } = await render(pagina);
 
-const droneCategories = [
-  {
-    title: 'FPV Racing Pro',
-    category: 'Competencia Speed',
-    scale: '5-inch Class',
-    description: 'Adrenalina pura en primera persona. Construidos para la máxima agilidad y velocidad en circuitos técnicos. El estándar de la Liga Nacional FPV.',
-    image: 'https://images.unsplash.com/photo-1527977966376-1c841cf93ad2?auto=format&fit=crop&q=80',
-    specs: ['160+ KM/H Top', 'Frame Carbono 5"', 'Latencia < 20ms', 'AFAC: Micro UAV']
-  },
-  {
-    title: 'Cinewhoop Cinema',
-    category: 'Producción Audiovisual',
-    scale: '3-inch Duct',
-    description: 'Capturas cinematográficas imposibles. Drones con hélices protegidas para vuelos seguros en interiores y cerca de personas. Calidad 4K/60fps.',
-    image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80',
-    specs: ['Hélices Protegidas', '4K / 60fps HDR', 'Vuelo Indoor Pro', 'AFAC: Micro UAV']
-  },
-  {
-    title: 'Digital Cinema O3',
-    category: 'High-End FPV',
-    scale: 'Middle Range',
-    description: 'La revolución digital en tus ojos. Equipados con el sistema DJI O3 para una transmisión de video cristalina y un rango de operación extendido.',
-    image: 'https://images.unsplash.com/photo-1473960104312-3273ed4bb08a?auto=format&fit=crop&q=80',
-    specs: ['Transmisión O3 HD', 'Rango 10KM (FCC)', 'GPS Rescue Alt.', 'AFAC: Micro UAV']
-  },
-  {
-    title: 'Mini / Ultralight',
-    category: 'Libertad de Vuelo',
-    scale: 'Sub-250g',
-    description: 'Máximo rendimiento sin complicaciones legales. Drones de menos de 250g que no requieren registro ante AFAC para uso recreativo en México.',
-    image: 'https://images.unsplash.com/photo-1521749831539-40cd57902d5e?auto=format&fit=crop&q=80',
-    specs: ['Peso < 250g', 'Sin Registro AFAC', 'Autonomía 30min', 'Grabación 4K']
-  },
-  {
-    title: 'Long Range / Explorer',
-    category: 'Exploración Total',
-    scale: '7-inch Class',
-    description: 'Ingeniería diseñada para largas distancias. Marcos optimizados para eficiencia energética y sistemas de navegación GPS avanzada para retorno seguro.',
-    image: 'https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&q=80',
-    specs: ['Vuelo 45min+', 'Navegación GPS', 'Enlace 20KM+', 'AFAC: Ligero UAV']
-  },
-  {
-    title: 'Enterprise / Industrial',
-    category: 'Soluciones B2B',
-    scale: 'Industrial Scale',
-    description: 'Herramientas de precisión para la industria mexicana. Inspección térmica, seguridad y mapeo fotogramétrico con sensores de alta tecnología.',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80',
-    specs: ['Sensor Térmico', 'Zoom Óptico 30x', 'Protección IP45', 'AFAC: Ligero UAV']
-  }
-];
+const porOrden = <T extends { data: { orden: number } }>(a: T, b: T) => a.data.orden - b.data.orden;
+const categorias = await getCollection('categorias');
+const drones = categorias.filter((c) => c.data.linea === 'drones-pro').sort(porOrden);
+const carros = categorias.filter((c) => c.data.linea === 'carros-rc').sort(porOrden);
+const servicios = (await getCollection('servicios')).sort(porOrden);
 
-const allNoticias = await getCollection('noticias', ({ data }) => !data.draft);
-const latestNoticias = allNoticias
+const hoy = new Date();
+const eventos = (await getCollection('eventos', ({ data }) => !data.draft && data.date >= hoy)).sort(
+  (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+);
+const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const slug = (id: string) => id.split('/').pop();
 ---
 
-<BaseLayout
-  title="Turbo Racing | Eventos RC y Drones en México"
-  description="Turbo Racing es la empresa líder en México para la difusión del hobby RC y drones. Eventos corporativos, excursiones familiares y competencias de alta velocidad."
->
-  <HeroSection ctaText="Explorar Experiencias" />
-  <QuickNav />
-
-  <!-- Catálogo de Categorías: DRONES PRO -->
-  <section id="drones-pro" class="py-24 px-4 bg-dark">
-    <div class="max-w-7xl mx-auto">
-      <SectionHeader 
-        badge="División Aérea"
-        title="Drones Pro"
-        p1="Llevamos la cinematografía y el racing al siguiente nivel. Equipos de alto rendimiento configurados bajo los estándares de la AFAC para operaciones seguras en México."
-        p2="Desde vuelos tácticos indoor hasta inspección industrial térmica, nuestra flota está lista para cualquier desafío aéreo."
-        slogan="El Cielo no es el Límite, es nuestra Pista"
-        badgeColor="accent"
-      />
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {droneCategories.map((cat) => (
-          <CategoryCard {...cat} />
-        ))}
-      </div>
+<BaseLayout seo={{ tipo: 'inicio', title: pagina.data.title, seoTitle: pagina.data.seoTitle, description: pagina.data.description, path: '/' }}>
+  <!-- Hero -->
+  <section class="relative min-h-[80vh] flex items-center overflow-hidden pt-16">
+    <div class="absolute inset-0 z-0">
+      <Image src={hero.imagen} alt={hero.alt} widths={[768, 1280, 1920]} sizes="100vw" loading="eager" fetchpriority="high" class="w-full h-full object-cover object-right" />
+      <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/70 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/50 to-transparent"></div>
     </div>
-  </section>
 
-  <!-- Segmentos de Experiencia -->
-  <section id="experiencias" class="max-w-7xl mx-auto px-4 py-24">
-    <SectionHeader 
-      badge="Nuestros Servicios"
-      title="Domina la Pista"
-      p1="Profesionalizamos la pasión por el radio control en México, ofreciendo un ecosistema integral que abarca desde la logística corporativa hasta la recreación familiar de élite. Nuestras experiencias están diseñadas bajo estándares de seguridad internacional."
-      p2="Nuestras soluciones B2B y B2C se adaptan con precisión quirúrgica, respaldadas por expertos en ingeniería y pilotos certificados. Sea para fortalecer su empresa o competir en la liga profesional, Turbo Racing es su aliado estratégico."
-      slogan="Donde la Ingeniería se encuentra con la Adrenalina Pura"
-      badgeColor="primary"
-    />
-
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Corporativo -->
-      <div class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2">
-        <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>
-        </div>
-        <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">Turbo Corporate</h3>
-        <p class="text-light/60 mb-6 font-medium">
-          Team building de alto impacto. Carreras de relevos y retos técnicos para empresas que buscan innovación y adrenalina.
-        </p>
-        <ul class="text-sm text-light/40 space-y-2 mb-8">
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Telemetría en vivo</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Aftermovies 4K</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Cobertura nacional</li>
-        </ul>
-        <a href="/servicios/corporativo" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Saber más &rarr;</a>
-      </div>
-
-      <!-- Familias -->
-      <div class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2">
-        <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        </div>
-        <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">Family Adrenaline</h3>
-        <p class="text-light/60 mb-6 font-medium">
-          Excursiones de fin de semana con renta de equipo. Diversión garantizada para todas las edades con seguridad total.
-        </p>
-        <ul class="text-sm text-light/40 space-y-2 mb-8">
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Equipos Ready-to-Run</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Instructores Pro</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Pistas seguras</li>
-        </ul>
-        <a href="/servicios/familias" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Saber más &rarr;</a>
-      </div>
-
-      <!-- Pro Enthusiasts -->
-      <div class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2">
-        <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </div>
-        <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">Pro Liga México</h3>
-        <p class="text-light/60 mb-6 font-medium">
-          La arena para los expertos. Competencias oficiales de FPV Racing y RC Drift con ranking nacional y premios.
-        </p>
-        <ul class="text-sm text-light/40 space-y-2 mb-8">
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Cronometraje MyLaps</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Pistas homologadas</li>
-          <li class="flex items-center gap-2"><span class="text-primary">✓</span> Transmisión en vivo</li>
-        </ul>
-        <a href="/servicios/pro-liga" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Unirse a la liga &rarr;</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Catálogo de Categorías: CARROS RC -->
-  <section id="carros-rc" class="bg-secondary/20 py-24 px-4 border-y border-white/5">
-    <div class="max-w-7xl mx-auto">
-      <SectionHeader 
-        badge="Catálogo Técnico"
-        title="Ingeniería RC"
-        p1="Explora nuestra selección curada de vehículos de radio control, categorizados por su rendimiento y especialidad técnica. Desde la precisión micro hasta el dominio off-road."
-        p2="Cada categoría representa un ecosistema único con soporte completo de refacciones y comunidad dedicada en México."
-        badgeColor="neutral"
-      />
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {rcCarCategories.map((cat) => (
-          <CategoryCard {...cat} />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <StatsCounter />
-
-  <!-- Turbo Edge (Why Us) -->
-  <section class="bg-primary py-24 text-white overflow-hidden relative">
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute -right-20 -top-20 text-[20rem] font-bold font-heading italic leading-none select-none">TURBO</div>
-    </div>
-    <div class="max-w-7xl mx-auto px-4 relative z-10">
-      <div class="grid md:grid-cols-2 gap-16 items-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div>
-          <h2 class="font-heading text-5xl md:text-6xl font-bold mb-8 uppercase italic leading-none">
-            ¿Por qué <br /> <span class="text-secondary">Turbo Racing?</span>
-          </h2>
-          <p class="text-xl opacity-90 mb-10 font-medium">
-            No solo vendemos equipo, creamos la atmósfera. Somos el único referente en México que unifica comunidad, soporte y eventos de clase mundial.
+          <p class="inline-block text-primary text-[10px] font-bold uppercase tracking-[0.35em] mb-6 bg-dark/60 backdrop-blur-sm px-5 py-2 rounded-full border border-primary/30">
+            {hero.badge}
           </p>
-          <div class="grid grid-cols-2 gap-8 text-center md:text-left">
-            <div>
-              <div class="text-4xl font-bold font-heading">100%</div>
-              <div class="text-sm uppercase font-bold opacity-80">Cobertura Nacional</div>
-            </div>
-            <div>
-              <div class="text-4xl font-bold font-heading">+50</div>
-              <div class="text-sm uppercase font-bold opacity-80">Eventos Anuales</div>
-            </div>
+          <h1 class="font-heading text-7xl sm:text-8xl md:text-9xl font-bold text-light leading-[0.85] uppercase italic tracking-tighter mb-8">
+            {hero.linea1} <br class="hidden md:block" />
+            <span class="text-primary drop-shadow-[0_10px_10px_rgba(249,115,22,0.3)]">{hero.linea2}</span>
+          </h1>
+          <p class="flex items-center gap-4 text-light/60 font-bold uppercase tracking-widest text-[11px] mb-10">
+            <span class="w-8 h-0.5 bg-primary/60" aria-hidden="true"></span>
+            {hero.tagline}
+          </p>
+          <div class="flex flex-wrap gap-4">
+            {hero.botones.map((b) => <Boton href={b.href} estilo={b.estilo}>{b.label}</Boton>)}
           </div>
         </div>
-        <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl">
-          <h3 class="font-heading text-2xl font-bold mb-6 uppercase">Turbo Pit Stop</h3>
-          <p class="mb-8 opacity-80">Si se rompe, lo arreglamos. Contamos con el stock de refacciones más grande de México para marcas líderes como Traxxas, DJI y Arrma.</p>
-          <button class="w-full bg-white text-primary font-bold py-4 rounded-xl uppercase tracking-widest hover:bg-secondary hover:text-white transition-all">Ver Refacciones</button>
+        <div class="space-y-6 text-light/80 text-sm lg:text-base leading-relaxed tracking-wide max-w-lg [&_strong]:text-light [&_strong]:font-bold">
+          <TextoHero />
         </div>
       </div>
     </div>
   </section>
 
-  <Methodology />
-  <TrustBadges />
+  <QuickNav accesos={accesos} />
 
-  <!-- Próximos Eventos México -->
-  <section id="eventos" class="bg-dark px-4 py-24">
-    <div class="max-w-7xl mx-auto">
-      <SectionHeader 
-        badge="Calendario 2026"
-        title="Próximas Paradas"
-        p1="Recorremos las ciudades más estratégicas del país para llevar la emoción del RC y FPV a una escala corporativa sin precedentes en México, con paradas en CDMX, Monterrey y Guadalajara."
-        p2="Participe en circuitos diseñados por expertos y dinámicas de networking exclusivas para el sector profesional. Nuestra presencia nacional garantiza una ejecución impecable en cada sede."
-        badgeColor="accent"
-      />
-
-      <div class="space-y-4">
-        {[
-          { date: '15 Abr', city: 'Ciudad de México', location: 'Parque La Mexicana', event: 'Corporate Drone Challenge' },
-          { date: '02 May', city: 'Monterrey', location: 'La Huasteca', event: 'Off-Road Rally Adventure' },
-          { date: '20 Jun', city: 'Guadalajara', location: 'Expo Guadalajara', event: 'Nacional FPV Racing' }
-        ].map((event) => (
-          <div class="group flex flex-col md:flex-row items-center justify-between p-8 bg-secondary/20 border border-white/5 rounded-2xl hover:border-primary/40 hover:bg-secondary/40 transition-all cursor-pointer">
-            <div class="flex items-center gap-8 mb-4 md:mb-0">
-              <div class="text-primary font-heading text-3xl font-bold w-20">{event.date}</div>
-              <div>
-                <h3 class="font-heading text-xl font-bold text-light uppercase">{event.event}</h3>
-                <p class="text-light/40">{event.city} | {event.location}</p>
-              </div>
-            </div>
-            <button class="bg-white/5 group-hover:bg-primary text-light group-hover:text-white px-6 py-3 rounded-lg font-bold transition-all uppercase tracking-wider text-sm">
-              Reservar Lugar
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Noticias Destacadas -->
-  {latestNoticias.length > 0 && (
-    <section id="ultimas-noticias" class="max-w-7xl mx-auto px-4 py-24">
-      <SectionHeader 
-        badge="Insights"
-        title="Noticias de Pista"
-        p1="Manténgase informado sobre las últimas tendencias tecnológicas y la normativa vigente para drones en México. Compartimos análisis técnicos para maximizar el rendimiento de sus unidades."
-        p2="Nuestros insights están curados para el profesional que busca eficiencia operativa y el entusiasta que persigue la perfección técnica. Siga de cerca el panorama industrial del hobby."
-        badgeColor="neutral"
-      />
-
-      <div class="grid md:grid-cols-3 gap-8">
-        {latestNoticias.map((noticia) => (
-          <ArticleCard
-            title={noticia.data.title}
-            description={noticia.data.description}
-            pubDate={noticia.data.pubDate}
-            category={noticia.data.category}
-            slug={noticia.slug}
-            image={noticia.data.image}
-          />
-        ))}
+  <!-- Drones Pro -->
+  {secciones.drones && (
+    <section id="drones-pro" class="py-24 px-4 bg-dark">
+      <div class="max-w-7xl mx-auto">
+        <SectionHeader {...secciones.drones} />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {drones.map((cat) => <CategoryCard categoria={cat} href={`/catalogo/drones-pro/#${slug(cat.id)}`} />)}
+        </div>
       </div>
     </section>
   )}
 
-  <!-- Footer CTA -->
-  <section id="contacto" class="max-w-7xl mx-auto px-4 py-24 text-center">
-    <div class="bg-gradient-to-br from-secondary/50 to-dark border border-white/10 p-16 rounded-[3rem] relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] rounded-full"></div>
-      <h2 class="font-heading text-5xl md:text-6xl font-bold text-light mb-8 uppercase italic tracking-tighter">
-        ¿Tu empresa está <br /> <span class="text-primary">al siguiente nivel?</span>
-      </h2>
-      <p class="text-light/60 max-w-xl mx-auto mb-12 text-lg font-medium">
-        Contáctanos hoy mismo para cotizar eventos a la medida, excursiones familiares o unirte a la liga nacional de pilotos.
-      </p>
-      <div class="flex flex-wrap justify-center gap-6">
-        <button class="bg-primary hover:bg-primary/90 text-white font-bold px-12 py-5 rounded-xl transition-all hover:scale-105 shadow-xl shadow-primary/20 uppercase tracking-widest">
-          Hablar con un Experto
-        </button>
-        <button class="border border-white/20 hover:bg-white/10 text-white font-bold px-12 py-5 rounded-xl transition-all uppercase tracking-widest">
-          Suscrito al Newsletter
-        </button>
-      </div>
+  <!-- Servicios -->
+  <section id="experiencias" class="max-w-7xl mx-auto px-4 py-24 scroll-mt-16">
+    {secciones.experiencias && <SectionHeader {...secciones.experiencias} />}
+    <div class="grid md:grid-cols-3 gap-8">
+      {servicios.map((s) => (
+        <article class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2 flex flex-col">
+          <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+            <ServiceIcon icono={s.data.icono} />
+          </div>
+          <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">{s.data.resumen.nombre}</h3>
+          <p class="text-light/70 mb-6 font-medium">{s.data.resumen.texto}</p>
+          <ul class="text-sm text-light/70 space-y-2 mb-8 flex-1">
+            {s.data.resumen.puntos.map((p) => (
+              <li class="flex items-center gap-2"><span class="text-primary" aria-hidden="true">✓</span> {p}</li>
+            ))}
+          </ul>
+          <a href={`/servicios/${s.id}/`} class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">
+            {s.data.resumen.enlace} <span aria-hidden="true">&rarr;</span><span class="sr-only">: {s.data.resumen.nombre}</span>
+          </a>
+        </article>
+      ))}
     </div>
   </section>
+
+  <!-- Carros RC -->
+  {secciones.carros && (
+    <section id="carros-rc" class="bg-secondary/20 py-24 px-4 border-y border-white/5">
+      <div class="max-w-7xl mx-auto">
+        <SectionHeader {...secciones.carros} />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {carros.map((cat) => <CategoryCard categoria={cat} href={`/catalogo/carros-rc/#${slug(cat.id)}`} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Por qué Turbo Racing -->
+  {porque && (
+    <section class="bg-gradient-to-br from-orange-600 to-orange-800 py-24 text-white overflow-hidden relative">
+      <div class="absolute inset-0 opacity-10" aria-hidden="true">
+        <div class="absolute -right-20 -top-20 text-[20rem] font-bold font-heading italic leading-none select-none">TURBO</div>
+      </div>
+      <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 class="font-heading text-5xl md:text-6xl font-bold mb-8 uppercase italic leading-none">
+              {porque.titulo} <br /> <span class="text-dark">{porque.resaltado}</span>
+            </h2>
+            <p class="text-xl mb-10 font-medium">{porque.texto}</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl">
+            <h3 class="font-heading text-2xl font-bold mb-6 uppercase">{porque.tarjeta.titulo}</h3>
+            <p class="mb-8">{porque.tarjeta.texto}</p>
+            <Boton href={porque.tarjeta.boton.href} estilo="claro" class="w-full">{porque.tarjeta.boton.label}</Boton>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {proceso && <Methodology badge={proceso.badge} titulo={proceso.titulo} pasos={proceso.pasos} />}
+
+  <!-- Próximos eventos: solo con fechas futuras publicadas -->
+  {eventos.length > 0 && secciones.eventos && (
+    <section id="eventos" class="bg-dark px-4 py-24">
+      <div class="max-w-7xl mx-auto">
+        <SectionHeader {...secciones.eventos} />
+        <ul class="space-y-4">
+          {eventos.map((ev) => (
+            <li class="flex flex-col md:flex-row items-center justify-between gap-4 p-8 bg-secondary/20 border border-white/5 rounded-2xl hover:border-primary/40 transition-all">
+              <div class="flex items-center gap-8">
+                <time datetime={ev.data.date.toISOString()} class="text-primary font-heading text-2xl font-bold w-32">{fechaMx(ev.data.date, 'short')}</time>
+                <div>
+                  <h3 class="font-heading text-xl font-bold text-light uppercase">{ev.data.title}</h3>
+                  <p class="text-light/70">{ev.data.ciudad} | {ev.data.sede}</p>
+                </div>
+              </div>
+              <Boton href={ev.data.registroUrl ?? `/contacto/?servicio=pro-liga`} estilo="contorno">Reservar lugar</Boton>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- Noticias -->
+  {noticias.length > 0 && secciones.noticias && (
+    <section id="ultimas-noticias" class="max-w-7xl mx-auto px-4 py-24">
+      <SectionHeader {...secciones.noticias} />
+      <div class="grid md:grid-cols-3 gap-8">
+        {noticias.map((n) => <ArticleCard noticia={n} />)}
+      </div>
+    </section>
+  )}
+
+  {cta && <CtaFinal {...cta} />}
 </BaseLayout>

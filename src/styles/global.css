@@ -1,0 +1,40 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/oswald';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.primary');
+    outline-offset: 3px;
+  }
+  /* Evita zoom automático en iOS al enfocar campos. */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 24px rgb(249 115 22 / 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

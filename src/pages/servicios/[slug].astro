@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import PageHero from '@components/PageHero.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import CtaFinal from '@components/CtaFinal.astro';
+import type { Migaja } from '@lib/seo';
+
+export async function getStaticPaths() {
+  const servicios = await getCollection('servicios');
+  return servicios.map((servicio) => ({ params: { slug: servicio.id }, props: { servicio } }));
+}
+
+interface Props {
+  servicio: CollectionEntry<'servicios'>;
+}
+
+const { servicio } = Astro.props;
+const d = servicio.data;
+const { Content } = await render(servicio);
+const path = `/servicios/${servicio.id}/`;
+const migas: Migaja[] = [
+  { nombre: 'Inicio', url: '/' },
+  { nombre: d.resumen.nombre, url: path },
+];
+const hover = d.acento === 'secondary' ? 'hover:border-blue-300/50' : 'hover:border-primary/40';
+---
+
+<BaseLayout
+  seo={{
+    tipo: 'servicio',
+    title: d.title,
+    seoTitle: d.seoTitle,
+    description: d.description,
+    path,
+    image: d.hero.imagen.src,
+    migas,
+    servicio: { nombre: d.resumen.nombre, tipo: d.seoTitle },
+  }}
+>
+  <Breadcrumbs migas={migas} />
+  <PageHero {...d.hero} acento={d.acento} />
+
+  <section class="py-24 px-4">
+    <div class="max-w-7xl mx-auto">
+      <SectionHeader badge={d.seccion.badge} title={d.seccion.title} slogan={d.seccion.slogan} badgeColor={d.seccion.badgeColor}>
+        <Content />
+      </SectionHeader>
+
+      <ul class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {d.caracteristicas.map((f) => (
+          <li class={`bg-secondary/30 border border-white/5 p-8 rounded-3xl transition-all group ${hover}`}>
+            <span class="text-4xl mb-6 inline-block group-hover:scale-110 transition-transform" aria-hidden="true">{f.icon}</span>
+            <h3 class="font-heading text-xl font-bold text-light mb-4 uppercase italic tracking-tight">{f.title}</h3>
+            <p class="text-light/70 text-sm leading-relaxed">{f.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {d.bloqueImagen && (
+    <section class="max-w-7xl mx-auto px-4 py-12">
+      <div class="relative aspect-[4/3] md:aspect-[21/9] rounded-[3rem] overflow-hidden border border-white/5">
+        <Image src={d.bloqueImagen.imagen} alt={d.bloqueImagen.alt} widths={[640, 1024, 1280]} sizes="(min-width: 1280px) 1248px, 100vw" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-dark/60 flex items-center justify-center text-center px-4">
+          <h2 class="font-heading text-3xl md:text-5xl font-bold text-white uppercase italic tracking-tighter">
+            {d.bloqueImagen.linea1} <br /> <span class="text-blue-300 text-glow">{d.bloqueImagen.linea2}</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaFinal {...d.cta} acento={d.acento} />
+</BaseLayout>

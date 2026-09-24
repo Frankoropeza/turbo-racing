@@ -1,55 +1,63 @@
 ---
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+
 interface Props {
-  title: string;
-  category: string;
-  scale: string;
-  specs: string[];
-  image: string;
-  description: string;
+  categoria: CollectionEntry<'categorias'>;
+  href: string;
+  ctaLabel?: string;
+  /** Carga prioritaria (solo para tarjetas visibles al cargar). */
+  prioridad?: boolean;
 }
 
-const { title, category, scale, specs, image, description } = Astro.props;
+const { categoria, href, ctaLabel = 'Explorar gama', prioridad = false } = Astro.props;
+const { title, etiqueta, escala, specs, imagen, alt, tipo } = categoria.data;
+const { Content } = await render(categoria);
 ---
 
-<div class="group bg-secondary/30 border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full">
-  <!-- Image Container -->
-  <div class="relative aspect-video overflow-hidden">
-    <img 
-      src={image} 
-      alt={title} 
+<article
+  id={categoria.id.split('/').pop()}
+  data-tipo={tipo}
+  class="group bg-secondary/30 border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full scroll-mt-24"
+>
+  <div class="relative aspect-video overflow-hidden bg-secondary">
+    <Image
+      src={imagen}
+      alt={alt}
+      widths={[400, 640, 800]}
+      sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
+      loading={prioridad ? 'eager' : 'lazy'}
       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-60"></div>
-    
-    <!-- Scale Badge -->
-    <div class="absolute top-4 right-4 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
-      Escala {scale}
-    </div>
+    <span class="absolute top-4 right-4 bg-primary-strong text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
+      Escala {escala}
+    </span>
   </div>
 
-  <!-- Content -->
   <div class="p-8 flex flex-col flex-1">
-    <span class="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-2">{category}</span>
+    <span class="text-primary text-[11px] font-bold uppercase tracking-[0.2em] mb-2">{etiqueta}</span>
     <h3 class="font-heading text-2xl font-bold text-light uppercase mb-4 tracking-tighter italic leading-none group-hover:text-primary transition-colors">
       {title}
     </h3>
-    
-    <p class="text-light/50 text-sm leading-relaxed mb-6 flex-1 line-clamp-3">
-      {description}
-    </p>
-
-    <!-- Technical Specs -->
-    <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-8 border-t border-white/5 pt-6">
-      {specs.map((spec) => (
-        <div class="flex items-center gap-2">
-          <div class="w-1 h-1 bg-primary rounded-full"></div>
-          <span class="text-[10px] text-light/40 uppercase font-bold tracking-wider">{spec}</span>
-        </div>
-      ))}
+    <div class="text-light/70 text-sm leading-relaxed mb-6 flex-1 [&>p]:line-clamp-4">
+      <Content />
     </div>
 
-    <button class="w-full py-4 border border-white/10 hover:border-primary hover:bg-primary text-light hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-lg">
-      Explorar Gama
-    </button>
+    <ul class="grid grid-cols-2 gap-y-3 gap-x-4 mb-8 border-t border-white/5 pt-6">
+      {specs.map((spec) => (
+        <li class="flex items-center gap-2">
+          <span class="w-1 h-1 bg-primary rounded-full shrink-0" aria-hidden="true"></span>
+          <span class="text-[11px] text-light/60 uppercase font-bold tracking-wider">{spec}</span>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href={href}
+      class="w-full py-4 border border-white/15 hover:border-primary hover:bg-primary-strong text-light hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-lg text-center"
+    >
+      {ctaLabel}<span class="sr-only">: {title}</span>
+    </a>
   </div>
-</div>
+</article>

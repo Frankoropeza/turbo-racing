@@ -1,0 +1,24 @@
+---
+import type { Migaja } from '@lib/seo';
+
+interface Props {
+  migas: Migaja[];
+}
+
+const { migas } = Astro.props;
+---
+
+<nav aria-label="Ruta de navegación" class="max-w-7xl mx-auto px-4 pt-24 -mb-16 relative z-20">
+  <ol class="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-widest font-bold text-light/60">
+    {migas.map((m, i) => (
+      <li class="flex items-center gap-2">
+        {i > 0 && <span aria-hidden="true" class="text-light/30">/</span>}
+        {i < migas.length - 1 ? (
+          <a href={m.url} class="hover:text-primary transition-colors">{m.nombre}</a>
+        ) : (
+          <span aria-current="page" class="text-light/80">{m.nombre}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

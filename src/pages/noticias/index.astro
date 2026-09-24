@@ -1,35 +1,47 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import ArticleCard from '@components/ArticleCard.astro';
+import type { Migaja } from '@lib/seo';
 
-const allNoticias = await getCollection('noticias', ({ data }) => !data.draft);
-const noticias = allNoticias.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const pagina = await getEntry('paginas', 'noticias');
+if (!pagina) throw new Error('Falta src/content/paginas/noticias.md');
+const { Content } = await render(pagina);
+const noticias = (await getCollection('noticias', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const migas: Migaja[] = [
+  { nombre: 'Inicio', url: '/' },
+  { nombre: 'Noticias', url: '/noticias/' },
+];
 ---
 
-<BaseLayout title="Noticias" description="Todas las noticias y novedades del mundo del automovilismo en Turbo Racing.">
+<BaseLayout
+  seo={{
+    tipo: 'noticias',
+    title: pagina.data.title,
+    seoTitle: pagina.data.seoTitle,
+    description: pagina.data.description,
+    path: '/noticias/',
+    migas,
+    items: noticias.map((n) => ({ nombre: n.data.title, url: `/noticias/${n.id}/` })),
+  }}
+>
+  <Breadcrumbs migas={migas} />
   <section class="max-w-7xl mx-auto px-4 pt-28 pb-20">
     <div class="mb-12">
-      <span class="text-accent text-sm font-semibold uppercase tracking-[0.2em]">Blog</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-bold text-light mt-2">Noticias</h1>
-      <p class="text-light/50 mt-3 max-w-2xl">Lo último del mundo del automovilismo, análisis técnicos y novedades de Turbo Racing.</p>
+      <p class="text-blue-300 text-sm font-semibold uppercase tracking-[0.2em]">{pagina.data.badge}</p>
+      <h1 class="font-heading text-4xl md:text-5xl font-bold text-light mt-2">{pagina.data.title}</h1>
+      <div class="text-light/70 mt-3 max-w-2xl"><Content /></div>
     </div>
 
     {noticias.length > 0 ? (
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {noticias.map((noticia) => (
-          <ArticleCard
-            title={noticia.data.title}
-            description={noticia.data.description}
-            pubDate={noticia.data.pubDate}
-            category={noticia.data.category}
-            slug={noticia.slug}
-            image={noticia.data.image}
-          />
-        ))}
+        {noticias.map((n) => <ArticleCard noticia={n} />)}
       </div>
     ) : (
-      <p class="text-light/50 text-center py-20">No hay noticias publicadas todavía.</p>
+      <p class="text-light/70 text-center py-20">Todavía no hay noticias publicadas.</p>
     )}
   </section>
 </BaseLayout>

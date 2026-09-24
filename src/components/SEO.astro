@@ -1,77 +1,38 @@
 ---
+import { site } from '@config/site';
+import { jsonLd, tituloCompleto, urlAbsoluta, type SeoInput } from '@lib/seo';
+
 interface Props {
-  title: string;
-  description: string;
-  image?: string;
-  article?: boolean;
-  pubDate?: Date;
-  author?: string;
+  seo: SeoInput;
 }
 
-const {
-  title,
-  description,
-  image = '/favicon.svg',
-  article = false,
-  pubDate,
-  author,
-} = Astro.props;
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const imageURL = new URL(image, Astro.site);
-const siteName = 'Turbo Racing';
+const { seo } = Astro.props;
+const titulo = tituloCompleto(seo.title, seo.seoTitle);
+const canonical = urlAbsoluta(seo.path);
+const imagen = urlAbsoluta(seo.image ?? site.ogImage);
+const esArticulo = seo.tipo === 'articulo' && seo.articulo;
+const schema = JSON.stringify(jsonLd(seo));
 ---
 
-<link rel="canonical" href={canonicalURL} />
+<title>{titulo}</title>
+<meta name="description" content={seo.description} />
+<link rel="canonical" href={canonical} />
+{seo.noindex && <meta name="robots" content="noindex, follow" />}
 
-<!-- Primary Meta Tags -->
-<meta name="title" content={title} />
-<meta name="description" content={description} />
-<meta name="author" content={author ?? siteName} />
+<meta property="og:type" content={esArticulo ? 'article' : 'website'} />
+<meta property="og:site_name" content={site.nombre} />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={titulo} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:image" content={imagen} />
+<meta property="og:image:alt" content={seo.title} />
+{esArticulo && <meta property="article:published_time" content={seo.articulo!.publicado.toISOString()} />}
+{esArticulo && seo.articulo!.actualizado && <meta property="article:modified_time" content={seo.articulo!.actualizado.toISOString()} />}
 
-<!-- Open Graph -->
-<meta property="og:type" content={article ? 'article' : 'website'} />
-<meta property="og:url" content={canonicalURL} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={imageURL} />
-<meta property="og:site_name" content={siteName} />
-<meta property="og:locale" content="es_ES" />
-{pubDate && <meta property="article:published_time" content={pubDate.toISOString()} />}
-
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={canonicalURL} />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:title" content={titulo} />
+<meta name="twitter:description" content={seo.description} />
+<meta name="twitter:image" content={imagen} />
 
-<!-- Schema.org -->
-<script type="application/ld+json" set:html={JSON.stringify({
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      name: siteName,
-      url: Astro.site?.toString(),
-      logo: new URL('/favicon.svg', Astro.site).toString(),
-      description: 'Portal de noticias, eventos y pilotos del mundo del automovilismo',
-    },
-    {
-      '@type': 'WebSite',
-      name: siteName,
-      url: Astro.site?.toString(),
-      description,
-      inLanguage: 'es',
-    },
-    ...(article ? [{
-      '@type': 'Article',
-      headline: title,
-      description,
-      image: imageURL.toString(),
-      datePublished: pubDate?.toISOString(),
-      author: { '@type': 'Person', name: author ?? siteName },
-      publisher: { '@type': 'Organization', name: siteName },
-    }] : []),
-  ],
-})} />
+<script is:inline type="application/ld+json" set:html={schema} />

@@ -1,0 +1,23 @@
+---
+import Boton from './Boton.astro';
+
+interface Props {
+  titulo: string;
+  resaltado: string;
+  texto: string;
+  boton: { label: string; href: string };
+  acento?: 'primary' | 'secondary';
+}
+
+const { titulo, resaltado, texto, boton, acento = 'primary' } = Astro.props;
+---
+
+<section class="py-24 px-4 text-center">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="font-heading text-4xl md:text-5xl font-bold text-light mb-8 uppercase italic">
+      {titulo} <span class={acento === 'secondary' ? 'text-blue-300' : 'text-primary'}>{resaltado}</span>
+    </h2>
+    <p class="text-light/70 text-lg mb-12">{texto}</p>
+    <Boton href={boton.href} acento={acento} class="px-12 py-5">{boton.label}</Boton>
+  </div>
+</section>

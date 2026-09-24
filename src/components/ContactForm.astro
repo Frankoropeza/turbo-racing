@@ -1,0 +1,119 @@
+---
+import { site, hayCanalDeContacto } from '@config/site';
+
+const servicios = [
+  { valor: 'corporativo', etiqueta: 'Evento corporativo (B2B)' },
+  { valor: 'familias', etiqueta: 'Experiencia familiar' },
+  { valor: 'pro-liga', etiqueta: 'Inscripción a la Pro Liga' },
+  { valor: 'catalogo', etiqueta: 'Catálogo de carros RC y drones' },
+  { valor: 'soporte', etiqueta: 'Soporte técnico y refacciones' },
+];
+
+const c = site.contacto;
+const modo = c.formEndpoint ? 'endpoint' : c.whatsapp ? 'whatsapp' : c.email ? 'email' : 'ninguno';
+const campo =
+  'w-full bg-secondary/50 border border-white/15 p-4 rounded-xl text-light placeholder:text-light/40 focus:border-primary focus:outline-none transition-all';
+const etiqueta = 'block text-[11px] uppercase font-bold text-light/70 tracking-widest pl-1 mb-2';
+---
+
+{hayCanalDeContacto() && modo !== 'ninguno' ? (
+  <form
+    id="form-contacto"
+    class="space-y-6"
+    method="post"
+    action={c.formEndpoint || undefined}
+    data-modo={modo}
+    data-endpoint={c.formEndpoint}
+    data-whatsapp={c.whatsapp.replace(/\D/g, '')}
+    data-email={c.email}
+  >
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <label for="cf-nombre" class={etiqueta}>Nombre completo</label>
+        <input id="cf-nombre" name="nombre" type="text" autocomplete="name" required class={campo} />
+      </div>
+      <div>
+        <label for="cf-correo" class={etiqueta}>Correo electrónico</label>
+        <input id="cf-correo" name="correo" type="email" autocomplete="email" required class={campo} />
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <label for="cf-telefono" class={etiqueta}>Teléfono o WhatsApp (opcional)</label>
+        <input id="cf-telefono" name="telefono" type="tel" autocomplete="tel" class={campo} />
+      </div>
+      <div>
+        <label for="cf-servicio" class={etiqueta}>Servicio de interés</label>
+        <select id="cf-servicio" name="servicio" class={campo}>
+          {servicios.map((s) => <option value={s.valor}>{s.etiqueta}</option>)}
+        </select>
+      </div>
+    </div>
+    <div>
+      <label for="cf-mensaje" class={etiqueta}>Mensaje</label>
+      <textarea id="cf-mensaje" name="mensaje" rows="5" required class={`${campo} resize-none`} placeholder="Cuéntanos sobre tu evento: fecha, número de personas y ciudad."></textarea>
+    </div>
+    <div class="flex items-start gap-3">
+      <input id="cf-privacidad" name="privacidad" type="checkbox" required class="mt-1 h-5 w-5 accent-primary shrink-0" />
+      <label for="cf-privacidad" class="text-sm text-light/70">
+        Acepto el <a href="/aviso-de-privacidad/" class="text-primary underline underline-offset-2 hover:text-orange-300">aviso de privacidad</a>.
+      </label>
+    </div>
+    <button type="submit" class="w-full bg-primary-strong hover:bg-orange-600 text-white font-bold py-5 rounded-xl uppercase tracking-widest transition-all shadow-xl shadow-primary/20">
+      Solicitar información
+    </button>
+    <p id="cf-estado" class="text-sm text-light/80 min-h-[1.25rem]" role="status" aria-live="polite"></p>
+  </form>
+) : (
+  <div class="bg-secondary/40 border border-white/10 rounded-2xl p-8 text-light/80 leading-relaxed">
+    <p>Estamos habilitando nuestros canales de atención. Muy pronto podrás solicitar tu cotización desde esta página.</p>
+  </div>
+)}
+
+<script>
+  const form = document.getElementById('form-contacto') as HTMLFormElement | null;
+
+  if (form) {
+    const estado = document.getElementById('cf-estado');
+    const select = form.querySelector<HTMLSelectElement>('#cf-servicio');
+    const pre = new URLSearchParams(window.location.search).get('servicio');
+    if (select && pre && [...select.options].some((o) => o.value === pre)) select.value = pre;
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const datos = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      const servicioTexto = select?.selectedOptions[0]?.textContent ?? datos.servicio;
+      const resumen =
+        `Hola, soy ${datos.nombre}.\n` +
+        `Servicio: ${servicioTexto}\n` +
+        `Correo: ${datos.correo}` +
+        (datos.telefono ? `\nTeléfono: ${datos.telefono}` : '') +
+        `\n\n${datos.mensaje}`;
+      const { modo, endpoint, whatsapp, email } = form.dataset;
+
+      if (modo === 'endpoint' && endpoint) {
+        try {
+          const r = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...datos, origen: window.location.href }),
+          });
+          if (!r.ok) throw new Error(String(r.status));
+          form.reset();
+          if (estado) estado.textContent = 'Gracias. Recibimos tu mensaje y te contactaremos pronto.';
+        } catch {
+          if (estado) estado.textContent = 'No pudimos enviar el mensaje. Intenta de nuevo en unos minutos.';
+        }
+        return;
+      }
+      if (modo === 'whatsapp' && whatsapp) {
+        window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(resumen)}`, '_blank', 'noopener');
+        if (estado) estado.textContent = 'Abrimos WhatsApp con tu mensaje listo para enviar.';
+        return;
+      }
+      if (modo === 'email' && email) {
+        window.location.href = `mailto:${email}?subject=${encodeURIComponent('Cotización Turbo Racing')}&body=${encodeURIComponent(resumen)}`;
+      }
+    });
+  }
+</script>
