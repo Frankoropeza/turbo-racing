@@ -4,7 +4,7 @@ linea: drones-pro
 etiqueta: Soluciones B2B
 escala: Industrial
 tipo: profesional
-specs: ['Sensor térmico', 'Zoom óptico 30x', 'Protección IP45', 'NOM-107: clase ligero']
+specs: ['Sensor térmico', 'Zoom óptico 30x', 'Protección IP45', 'NOM-107: clase pequeño']
 imagen: ../../../assets/images/cat-enterprise.jpg
 alt: Dron industrial en vuelo sobre un bosque durante una operación
 orden: 6

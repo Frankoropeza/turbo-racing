@@ -48,6 +48,31 @@
   }
 }
 
+/* Contenido editorial (Markdown): tablas desplazables en móvil y h5 legible. */
+@layer components {
+  .prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    font-size: 0.9em;
+  }
+  @media (min-width: 768px) {
+    .prose table {
+      display: table;
+    }
+  }
+  .prose thead th {
+    @apply bg-paper;
+  }
+  .prose th,
+  .prose td {
+    @apply px-3 py-2.5 align-top;
+  }
+  .prose h5 {
+    @apply mb-2 mt-6 text-sm font-semibold uppercase tracking-[0.08em] text-ink;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
