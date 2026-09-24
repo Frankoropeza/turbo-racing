@@ -1,14 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { fechaMx, categoriasNoticias } from '@lib/seo';
+import { categoriasNoticias } from '@lib/seo';
 
 interface Props {
   noticia: CollectionEntry<'noticias'>;
 }
 
 const { noticia } = Astro.props;
-const { title, description, pubDate, category, image, imageAlt } = noticia.data;
+const { title, description, category, image, imageAlt } = noticia.data;
 const href = `/noticias/${noticia.id}/`;
 ---
 
@@ -21,7 +21,7 @@ const href = `/noticias/${noticia.id}/`;
     )}
   </a>
   <p class="mt-4 text-xs text-muted">
-    {categoriasNoticias[category]} · <time datetime={pubDate.toISOString()}>{fechaMx(pubDate, 'short')}</time>
+    {categoriasNoticias[category]}
   </p>
   <h3 class="mt-2 text-lg font-medium leading-snug tracking-tight text-ink">
     <a href={href} class="hover:underline hover:underline-offset-4">{title}</a>

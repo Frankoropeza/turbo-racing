@@ -2,7 +2,7 @@
 title: 'Baterías LiPo para carros RC y drones: guía de carga, almacenamiento y seguridad'
 seoTitle: 'Baterías LiPo para RC y drones: guía de seguridad'
 description: 'Cómo cargar, usar, almacenar, transportar y desechar baterías LiPo de carros RC y drones: voltajes por celda, tasa C, señales de riesgo y buenas prácticas.'
-pubDate: 2026-09-24
+orden: 5
 author: Equipo Turbo Racing
 category: tecnologia
 image: ../../assets/images/cat-crawler.jpg

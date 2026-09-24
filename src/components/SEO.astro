@@ -28,8 +28,6 @@ const schema = JSON.stringify(jsonLd(seo));
 <meta property="og:description" content={seo.description} />
 <meta property="og:image" content={imagen} />
 <meta property="og:image:alt" content={sinAcento(seo.title)} />
-{esArticulo && <meta property="article:published_time" content={seo.articulo!.publicado.toISOString()} />}
-{esArticulo && seo.articulo!.actualizado && <meta property="article:modified_time" content={seo.articulo!.actualizado.toISOString()} />}
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={titulo} />

@@ -2,7 +2,7 @@
 title: 'Carros RC vs. drones FPV: cuál elegir para empezar en el hobby del radio control'
 seoTitle: 'Carros RC vs. drones FPV: cuál elegir para empezar'
 description: 'Comparamos carros RC y drones FPV por curva de aprendizaje, equipo, mantenimiento, regulación y lugares para practicar, para que elijas bien tu primer paso.'
-pubDate: 2026-09-24
+orden: 2
 author: Equipo Turbo Racing
 category: tecnologia
 image: ../../assets/images/cat-fpv.jpg

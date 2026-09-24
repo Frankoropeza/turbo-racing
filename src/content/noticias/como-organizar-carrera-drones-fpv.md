@@ -2,7 +2,7 @@
 title: 'Cómo organizar una carrera de drones FPV: pista, seguridad, frecuencias y cronometraje'
 seoTitle: 'Cómo organizar una carrera de drones FPV'
 description: 'Cómo organizar una carrera de drones FPV en México: diseño de pista, seguridad, frecuencias de video, cronometraje y formato de competencia.'
-pubDate: 2026-09-24
+orden: 4
 author: Equipo Turbo Racing
 category: competicion
 image: ../../assets/images/pista-rc-evento.jpg

@@ -2,7 +2,7 @@
 title: 'DRONN: guía del portal de drones en México para comprar, rentar, aprender y volar'
 seoTitle: 'DRONN: el portal de drones más completo de México'
 description: 'Conoce DRONN, el portal de drones en México: venta, renta, cursos con licencia RPAS, servicios aéreos, reparación, regulación AFAC y comunidad de pilotos.'
-pubDate: 2026-09-24
+orden: 1
 author: Equipo Turbo Racing
 category: tecnologia
 image: ../../assets/images/cat-cine-o3.jpg

@@ -2,7 +2,7 @@
 title: 'Drones en eventos corporativos: regulación, seguridad y planeación para empresas en México'
 seoTitle: 'Drones en eventos corporativos: regulación y seguridad'
 description: 'Qué debe saber una empresa antes de incluir drones en un evento o team building en México: NOM-107, seguro, zonas de vuelo, proveedores y lista de verificación.'
-pubDate: 2026-09-24
+orden: 3
 author: Equipo Turbo Racing
 category: eventos
 image: ../../assets/images/servicio-corporativo.jpg

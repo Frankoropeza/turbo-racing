@@ -2,8 +2,7 @@
 title: 'Bienvenidos a Turbo Racing: radio control y drones para vivir la adrenalina'
 seoTitle: Bienvenidos a Turbo Racing
 description: Conoce Turbo Racing, eventos corporativos, planes familiares y competencias de radio control y drones FPV en México, y lo que viene en este blog.
-pubDate: 2026-03-12
-updatedDate: 2026-09-24
+orden: 7
 author: Equipo Turbo Racing
 category: general
 image: ../../assets/images/noticia-bienvenida.jpg

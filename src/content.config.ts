@@ -171,8 +171,8 @@ const noticias = defineCollection({
       title: z.string().max(90),
       seoTitle: z.string().max(60).optional(),
       description: z.string().min(70).max(160),
-      pubDate: z.coerce.date(),
-      updatedDate: z.coerce.date().optional(),
+      /** Orden editorial en listados (menor = primero). El blog no muestra fechas. */
+      orden: z.number().int().default(100),
       author: z.string(),
       category: z.enum(['competicion', 'tecnologia', 'eventos', 'comunidad', 'general']),
       image: image().optional(),

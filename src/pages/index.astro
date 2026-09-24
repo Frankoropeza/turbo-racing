@@ -33,7 +33,7 @@ const eventos = hayEventos
     )
   : [];
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .sort((a, b) => a.data.orden - b.data.orden)
   .slice(0, 3);
 
 const slug = (id: string) => id.split('/').pop();

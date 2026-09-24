@@ -2,7 +2,7 @@
 title: 'Aftermovie con drones: cómo planear la fotografía y el video aéreo de un evento'
 seoTitle: 'Aftermovie con drones: cómo planear el video aéreo'
 description: 'Guía para planear el video aéreo de un evento: tipos de toma, dron adecuado, guion, permisos, seguridad, entregables y cómo elegir al operador de drones.'
-pubDate: 2026-09-24
+orden: 6
 author: Equipo Turbo Racing
 category: eventos
 image: ../../assets/images/cat-long-range.jpg

@@ -10,7 +10,7 @@ const pagina = await getEntry('paginas', 'noticias');
 if (!pagina) throw new Error('Falta src/content/paginas/noticias.md');
 const { Content } = await render(pagina);
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => a.data.orden - b.data.orden,
 );
 const migas: Migaja[] = [
   { nombre: 'Inicio', url: '/' },

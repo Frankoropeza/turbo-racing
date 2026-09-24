@@ -16,7 +16,7 @@ export interface SeoInput {
   path: string;
   image?: string;
   migas?: Migaja[];
-  articulo?: { publicado: Date; actualizado?: Date; autor: string; seccion?: string };
+  articulo?: { autor: string; seccion?: string };
   servicio?: { nombre: string; tipo: string };
   items?: { nombre: string; url: string }[];
   noindex?: boolean;
@@ -146,8 +146,6 @@ export function jsonLd(input: SeoInput) {
           headline: sinAcento(input.title),
           description: input.description,
           image: imagen,
-          datePublished: input.articulo.publicado.toISOString(),
-          dateModified: (input.articulo.actualizado ?? input.articulo.publicado).toISOString(),
           author: { '@type': 'Organization', name: input.articulo.autor },
           publisher: { '@id': ORG_ID },
           mainEntityOfPage: { '@id': `${url}#webpage` },
