@@ -6,6 +6,8 @@ import SEO from '@components/SEO.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import WhatsAppFlotante from '@components/WhatsAppFlotante.astro';
+import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
+import instrument from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
 
 interface Props {
   seo: SeoInput;
@@ -21,13 +23,15 @@ const { seo } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content={site.tema} />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preload" href={geist} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={instrument} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <SEO seo={seo} />
     <slot name="head" />
   </head>
-  <body class="bg-dark text-light font-sans min-h-screen flex flex-col antialiased">
-    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] bg-primary-strong text-white px-4 py-2 rounded-md font-bold">
+  <body id="top" class="flex min-h-screen flex-col bg-white font-sans text-ink antialiased">
+    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] rounded-full bg-ink px-4 py-2 text-sm font-medium text-white">
       Saltar al contenido
     </a>
     <Header />

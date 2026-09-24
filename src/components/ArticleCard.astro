@@ -9,33 +9,22 @@ interface Props {
 
 const { noticia } = Astro.props;
 const { title, description, pubDate, category, image, imageAlt } = noticia.data;
+const href = `/noticias/${noticia.id}/`;
 ---
 
-<article class="group relative bg-secondary/50 border border-light/5 rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300">
-  {image ? (
-    <div class="aspect-video overflow-hidden bg-secondary">
-      <Image
-        src={image}
-        alt={imageAlt ?? ''}
-        widths={[400, 640]}
-        sizes="(min-width: 768px) 33vw, 100vw"
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
-    </div>
-  ) : (
-    <div class="aspect-video bg-gradient-to-br from-primary/20 to-secondary flex items-center justify-center" aria-hidden="true">
-      <span class="text-5xl opacity-50">🏁</span>
-    </div>
-  )}
-  <div class="p-6">
-    <div class="flex items-center gap-3 mb-3">
-      <span class="text-xs font-medium text-primary uppercase tracking-wide">{categoriasNoticias[category]}</span>
-      <span class="text-light/40" aria-hidden="true">&middot;</span>
-      <time datetime={pubDate.toISOString()} class="text-xs text-light/60">{fechaMx(pubDate, 'short')}</time>
-    </div>
-    <h3 class="font-heading text-xl font-bold text-light group-hover:text-primary transition-colors mb-2 line-clamp-2">
-      <a href={`/noticias/${noticia.id}/`} class="after:absolute after:inset-0">{title}</a>
-    </h3>
-    <p class="text-sm text-light/70 line-clamp-3 leading-relaxed">{description}</p>
-  </div>
+<article class="group">
+  <a href={href} class="block overflow-hidden rounded-xl bg-paper" tabindex="-1" aria-hidden="true">
+    {image ? (
+      <Image src={image} alt={imageAlt ?? ''} widths={[400, 640]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+    ) : (
+      <div class="aspect-[4/3] w-full"></div>
+    )}
+  </a>
+  <p class="mt-4 text-xs text-muted">
+    {categoriasNoticias[category]} · <time datetime={pubDate.toISOString()}>{fechaMx(pubDate, 'short')}</time>
+  </p>
+  <h3 class="mt-2 text-lg font-medium leading-snug tracking-tight text-ink">
+    <a href={href} class="hover:underline hover:underline-offset-4">{title}</a>
+  </h3>
+  <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">{description}</p>
 </article>

@@ -3,12 +3,9 @@ title: Pro Liga México — Competencia de RC y FPV
 seoTitle: Pro Liga México de RC y drones FPV
 description: Competencias de drift RC y carreras de drones FPV con reglamento técnico por categoría, cronometraje por vuelta y ranking de pilotos.
 orden: 3
-icono: liga
-acento: primary
 hero:
   badge: Alto rendimiento
-  linea1: Pro Liga
-  linea2: México
+  titulo: Competencia de drift RC y drones FPV *para pilotos*
   texto: Donde las milésimas de segundo separan a los entusiastas de las leyendas. Competencia de radio control y FPV para pilotos que buscan el siguiente nivel.
   imagen: ../../assets/images/pista-rc-evento.jpg
   alt: Pista de carros RC al aire libre con pilotos compitiendo
@@ -22,16 +19,14 @@ resumen:
   enlace: Unirse a la liga
 seccion:
   badge: Reglamento
-  title: Arena de expertos
-  badgeColor: neutral
+  title: Arena de *expertos*
 caracteristicas:
-  - { title: Campeonato de drift, description: 'Competencias calificadas por jueces sobre técnica, ángulo y velocidad.', icon: '🔥' }
-  - { title: Trofeo FPV Drone Racing, description: 'Carreras con obstáculos y cronometraje por vuelta en circuitos técnicos.', icon: '⚡' }
-  - { title: Ranking de pilotos, description: 'Suma puntos en cada fecha y sigue tu progreso temporada tras temporada.', icon: '🏆' }
-  - { title: Clínicas de ingeniería, description: 'Talleres de ajuste electrónico y aerodinámica para mejorar tus tiempos.', icon: '📐' }
+  - { title: Campeonato de drift, description: 'Competencias calificadas por jueces sobre técnica, ángulo y velocidad.' }
+  - { title: Trofeo FPV Drone Racing, description: 'Carreras con obstáculos y cronometraje por vuelta en circuitos técnicos.' }
+  - { title: Ranking de pilotos, description: 'Suma puntos en cada fecha y sigue tu progreso temporada tras temporada.' }
+  - { title: Clínicas de ingeniería, description: 'Talleres de ajuste electrónico y aerodinámica para mejorar tus tiempos.' }
 cta:
-  titulo: Demuestra tu
-  resaltado: talento real
+  titulo: Demuestra tu *talento real*
   texto: Escríbenos para conocer el calendario, las categorías y el reglamento de la próxima temporada.
   boton: { label: Unirme a la liga, href: '/contacto/?servicio=pro-liga' }
 ---

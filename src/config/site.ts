@@ -19,7 +19,7 @@ export const site = {
   lema: 'Adrenalina radio controlada en México',
   ogImage: '/og-default.jpg',
   logo: '/favicon.svg',
-  tema: '#0F172A',
+  tema: '#FFFFFF',
 
   contacto: {
     /** Solo dígitos con lada de país, p. ej. '5215500000000'. Vacío = no se muestra. */

@@ -7,10 +7,10 @@ import SectionHeader from '@components/SectionHeader.astro';
 import CategoryCard from '@components/CategoryCard.astro';
 import ArticleCard from '@components/ArticleCard.astro';
 import Methodology from '@components/Methodology.astro';
-import ServiceIcon from '@components/ServiceIcon.astro';
 import Boton from '@components/Boton.astro';
 import CtaFinal from '@components/CtaFinal.astro';
 import { fechaMx } from '@lib/seo';
+import { conAcento, numero } from '@lib/texto';
 
 const pagina = await getEntry('paginas', 'inicio');
 if (!pagina) throw new Error('Falta src/content/paginas/inicio.md');
@@ -33,147 +33,125 @@ const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
   .slice(0, 3);
 
 const slug = (id: string) => id.split('/').pop();
+let n = 0;
+const sig = () => numero(++n);
 ---
 
 <BaseLayout seo={{ tipo: 'inicio', title: pagina.data.title, seoTitle: pagina.data.seoTitle, description: pagina.data.description, path: '/' }}>
   <!-- Hero -->
-  <section class="relative min-h-[80vh] flex items-center overflow-hidden pt-16">
-    <div class="absolute inset-0 z-0">
-      <Image src={hero.imagen} alt={hero.alt} widths={[768, 1280, 1920]} sizes="100vw" loading="eager" fetchpriority="high" class="w-full h-full object-cover object-right" />
-      <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/70 to-transparent"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/50 to-transparent"></div>
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div>
-          <p class="inline-block text-primary text-[10px] font-bold uppercase tracking-[0.35em] mb-6 bg-dark/60 backdrop-blur-sm px-5 py-2 rounded-full border border-primary/30">
-            {hero.badge}
-          </p>
-          <h1 class="font-heading text-7xl sm:text-8xl md:text-9xl font-bold text-light leading-[0.85] uppercase italic tracking-tighter mb-8">
-            {hero.linea1} <br class="hidden md:block" />
-            <span class="text-primary drop-shadow-[0_10px_10px_rgba(249,115,22,0.3)]">{hero.linea2}</span>
-          </h1>
-          <p class="flex items-center gap-4 text-light/60 font-bold uppercase tracking-widest text-[11px] mb-10">
-            <span class="w-8 h-0.5 bg-primary/60" aria-hidden="true"></span>
-            {hero.tagline}
-          </p>
-          <div class="flex flex-wrap gap-4">
-            {hero.botones.map((b) => <Boton href={b.href} estilo={b.estilo}>{b.label}</Boton>)}
-          </div>
-        </div>
-        <div class="space-y-6 text-light/80 text-sm lg:text-base leading-relaxed tracking-wide max-w-lg [&_strong]:text-light [&_strong]:font-bold">
-          <TextoHero />
-        </div>
+  <section class="contenedor pt-12 md:pt-20">
+    <p class="etiqueta mb-6">{hero.badge}</p>
+    <h1 class="max-w-5xl text-5xl font-medium leading-[1.0] tracking-display text-ink md:text-7xl lg:text-8xl" set:html={conAcento(hero.titulo)} />
+    <div class="mt-10 grid gap-8 md:grid-cols-12">
+      <div class="space-y-4 text-base leading-relaxed text-muted md:col-span-6 [&_strong]:font-medium [&_strong]:text-ink">
+        <TextoHero />
+      </div>
+      <div class="flex flex-wrap items-start gap-3 md:col-span-5 md:col-start-8 md:justify-end">
+        {hero.botones.map((b) => <Boton href={b.href} estilo={b.estilo}>{b.label}</Boton>)}
       </div>
     </div>
+    <div class="mt-12 overflow-hidden rounded-2xl bg-paper md:mt-16">
+      <Image
+        src={hero.imagen}
+        alt={hero.alt}
+        widths={[640, 1024, 1440, 1920]}
+        sizes="(min-width: 1216px) 1152px, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="aspect-[4/3] w-full object-cover md:aspect-[21/9]"
+      />
+    </div>
+    <p class="mt-3 text-xs text-muted">{hero.tagline}</p>
   </section>
 
   <QuickNav accesos={accesos} />
 
-  <!-- Drones Pro -->
-  {secciones.drones && (
-    <section id="drones-pro" class="py-24 px-4 bg-dark">
-      <div class="max-w-7xl mx-auto">
-        <SectionHeader {...secciones.drones} />
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {drones.map((cat) => <CategoryCard categoria={cat} href={`/catalogo/drones-pro/#${slug(cat.id)}`} />)}
-        </div>
-      </div>
-    </section>
-  )}
-
   <!-- Servicios -->
-  <section id="experiencias" class="max-w-7xl mx-auto px-4 py-24 scroll-mt-16">
-    {secciones.experiencias && <SectionHeader {...secciones.experiencias} />}
-    <div class="grid md:grid-cols-3 gap-8">
+  <section id="experiencias" class="contenedor mt-24 scroll-mt-20 md:mt-32">
+    {secciones.experiencias && <SectionHeader {...secciones.experiencias} numero={sig()} />}
+    <div class="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
       {servicios.map((s) => (
-        <article class="group bg-secondary/50 border border-white/5 p-8 rounded-2xl hover:border-primary/50 transition-all hover:-translate-y-2 flex flex-col">
-          <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-            <ServiceIcon icono={s.data.icono} />
-          </div>
-          <h3 class="font-heading text-2xl font-bold text-light mb-4 uppercase">{s.data.resumen.nombre}</h3>
-          <p class="text-light/70 mb-6 font-medium">{s.data.resumen.texto}</p>
-          <ul class="text-sm text-light/70 space-y-2 mb-8 flex-1">
+        <article class="flex flex-col bg-white p-8">
+          <h3 class="text-xl font-medium tracking-tight text-ink">{s.data.resumen.nombre}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{s.data.resumen.texto}</p>
+          <ul class="mt-6 flex-1 space-y-2 border-t border-line pt-6 text-sm text-muted">
             {s.data.resumen.puntos.map((p) => (
-              <li class="flex items-center gap-2"><span class="text-primary" aria-hidden="true">✓</span> {p}</li>
+              <li class="flex gap-2"><span class="text-primary-strong" aria-hidden="true">—</span>{p}</li>
             ))}
           </ul>
-          <a href={`/servicios/${s.id}/`} class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">
-            {s.data.resumen.enlace} <span aria-hidden="true">&rarr;</span><span class="sr-only">: {s.data.resumen.nombre}</span>
+          <a href={`/servicios/${s.id}/`} class="enlace mt-8 self-start">
+            {s.data.resumen.enlace}<span class="sr-only">: {s.data.resumen.nombre}</span> <span aria-hidden="true">→</span>
           </a>
         </article>
       ))}
     </div>
   </section>
 
+  <!-- Drones -->
+  {secciones.drones && (
+    <section id="drones-pro" class="contenedor mt-24 md:mt-32">
+      <SectionHeader {...secciones.drones} numero={sig()} />
+      <div class="grid grid-cols-2 gap-x-4 gap-y-10 md:gap-x-6 lg:grid-cols-3">
+        {drones.map((cat) => <CategoryCard categoria={cat} variante="compacta" href={`/catalogo/drones-pro/#${slug(cat.id)}`} />)}
+      </div>
+      <a href="/catalogo/drones-pro/" class="enlace mt-10">Ver catálogo de drones <span aria-hidden="true">→</span></a>
+    </section>
+  )}
+
   <!-- Carros RC -->
   {secciones.carros && (
-    <section id="carros-rc" class="bg-secondary/20 py-24 px-4 border-y border-white/5">
-      <div class="max-w-7xl mx-auto">
-        <SectionHeader {...secciones.carros} />
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {carros.map((cat) => <CategoryCard categoria={cat} href={`/catalogo/carros-rc/#${slug(cat.id)}`} />)}
-        </div>
+    <section id="carros-rc" class="contenedor mt-24 md:mt-32">
+      <SectionHeader {...secciones.carros} numero={sig()} />
+      <div class="grid grid-cols-2 gap-x-4 gap-y-10 md:gap-x-6 lg:grid-cols-3">
+        {carros.map((cat) => <CategoryCard categoria={cat} variante="compacta" href={`/catalogo/carros-rc/#${slug(cat.id)}`} />)}
       </div>
+      <a href="/catalogo/carros-rc/" class="enlace mt-10">Ver catálogo de carros RC <span aria-hidden="true">→</span></a>
     </section>
   )}
 
   <!-- Por qué Turbo Racing -->
   {porque && (
-    <section class="bg-gradient-to-br from-orange-600 to-orange-800 py-24 text-white overflow-hidden relative">
-      <div class="absolute inset-0 opacity-10" aria-hidden="true">
-        <div class="absolute -right-20 -top-20 text-[20rem] font-bold font-heading italic leading-none select-none">TURBO</div>
-      </div>
-      <div class="max-w-7xl mx-auto px-4 relative z-10">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 class="font-heading text-5xl md:text-6xl font-bold mb-8 uppercase italic leading-none">
-              {porque.titulo} <br /> <span class="text-dark">{porque.resaltado}</span>
-            </h2>
-            <p class="text-xl mb-10 font-medium">{porque.texto}</p>
-          </div>
-          <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl">
-            <h3 class="font-heading text-2xl font-bold mb-6 uppercase">{porque.tarjeta.titulo}</h3>
-            <p class="mb-8">{porque.tarjeta.texto}</p>
-            <Boton href={porque.tarjeta.boton.href} estilo="claro" class="w-full">{porque.tarjeta.boton.label}</Boton>
-          </div>
+    <section class="contenedor mt-24 md:mt-32">
+      <div class="grid gap-10 border-t border-line pt-8 md:grid-cols-12">
+        <div class="md:col-span-6">
+          <p class="etiqueta mb-5"><span class="text-ink">{sig()}</span> — Nosotros</p>
+          <h2 class="text-3xl font-medium leading-[1.05] tracking-display text-ink md:text-5xl" set:html={conAcento(porque.titulo)} />
+          <p class="mt-6 max-w-md text-base leading-relaxed text-muted">{porque.texto}</p>
+        </div>
+        <div class="rounded-2xl bg-paper p-8 md:col-span-5 md:col-start-8 md:p-10">
+          <h3 class="text-xl font-medium tracking-tight text-ink">{porque.tarjeta.titulo}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{porque.tarjeta.texto}</p>
+          <div class="mt-6"><Boton href={porque.tarjeta.boton.href} estilo="contorno">{porque.tarjeta.boton.label}</Boton></div>
         </div>
       </div>
     </section>
   )}
 
-  {proceso && <Methodology badge={proceso.badge} titulo={proceso.titulo} pasos={proceso.pasos} />}
+  {proceso && <Methodology badge={proceso.badge} titulo={proceso.titulo} pasos={proceso.pasos} numeroSeccion={sig()} />}
 
   <!-- Próximos eventos: solo con fechas futuras publicadas -->
   {eventos.length > 0 && secciones.eventos && (
-    <section id="eventos" class="bg-dark px-4 py-24">
-      <div class="max-w-7xl mx-auto">
-        <SectionHeader {...secciones.eventos} />
-        <ul class="space-y-4">
-          {eventos.map((ev) => (
-            <li class="flex flex-col md:flex-row items-center justify-between gap-4 p-8 bg-secondary/20 border border-white/5 rounded-2xl hover:border-primary/40 transition-all">
-              <div class="flex items-center gap-8">
-                <time datetime={ev.data.date.toISOString()} class="text-primary font-heading text-2xl font-bold w-32">{fechaMx(ev.data.date, 'short')}</time>
-                <div>
-                  <h3 class="font-heading text-xl font-bold text-light uppercase">{ev.data.title}</h3>
-                  <p class="text-light/70">{ev.data.ciudad} | {ev.data.sede}</p>
-                </div>
-              </div>
-              <Boton href={ev.data.registroUrl ?? `/contacto/?servicio=pro-liga`} estilo="contorno">Reservar lugar</Boton>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <section id="eventos" class="contenedor mt-24 md:mt-32">
+      <SectionHeader {...secciones.eventos} numero={sig()} />
+      <ul class="border-t border-line">
+        {eventos.map((ev) => (
+          <li class="grid items-center gap-4 border-b border-line py-6 md:grid-cols-12">
+            <time datetime={ev.data.date.toISOString()} class="text-sm text-muted md:col-span-2">{fechaMx(ev.data.date, 'short')}</time>
+            <h3 class="text-lg font-medium text-ink md:col-span-5">{ev.data.title}</h3>
+            <p class="text-sm text-muted md:col-span-3">{ev.data.ciudad} · {ev.data.sede}</p>
+            <a href={ev.data.registroUrl ?? '/contacto/?servicio=pro-liga'} class="enlace md:col-span-2 md:justify-self-end">Reservar <span aria-hidden="true">→</span></a>
+          </li>
+        ))}
+      </ul>
     </section>
   )}
 
   <!-- Noticias -->
   {noticias.length > 0 && secciones.noticias && (
-    <section id="ultimas-noticias" class="max-w-7xl mx-auto px-4 py-24">
-      <SectionHeader {...secciones.noticias} />
-      <div class="grid md:grid-cols-3 gap-8">
-        {noticias.map((n) => <ArticleCard noticia={n} />)}
+    <section id="ultimas-noticias" class="contenedor mt-24 md:mt-32">
+      <SectionHeader {...secciones.noticias} numero={sig()} />
+      <div class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {noticias.map((nt) => <ArticleCard noticia={nt} />)}
       </div>
     </section>
   )}

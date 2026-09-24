@@ -27,17 +27,20 @@ const responsable = site.legal.responsable || site.nombreLegal;
 
 <BaseLayout seo={{ tipo: 'legal', title: entry.data.title, description: entry.data.description, path, migas }}>
   <Breadcrumbs migas={migas} />
-  <article class="max-w-3xl mx-auto px-4 pt-24 pb-20">
-    <h1 class="font-heading text-4xl md:text-5xl font-bold text-light mb-4">{entry.data.title}</h1>
-    {entry.data.actualizado && (
-      <p class="text-sm text-light/60 mb-10">Última actualización: <time datetime={entry.data.actualizado.toISOString()}>{fechaMx(entry.data.actualizado)}</time></p>
-    )}
-    <div class="bg-secondary/40 border border-white/10 rounded-2xl p-6 mb-10 text-light/80 text-sm leading-relaxed">
-      <p><strong class="text-light">Responsable del tratamiento de tus datos personales:</strong> {responsable}.</p>
-      {site.legal.domicilio && <p class="mt-2"><strong class="text-light">Domicilio:</strong> {site.legal.domicilio}.</p>}
-    </div>
-    <div class="prose prose-invert max-w-none prose-headings:font-heading prose-headings:text-light prose-a:text-primary prose-strong:text-light">
-      <Content />
+  <article class="contenedor pt-10 md:pt-16">
+    <div class="mx-auto max-w-3xl">
+      <p class="etiqueta">Legal</p>
+      <h1 class="mt-5 text-4xl font-medium leading-[1.05] tracking-display text-ink md:text-5xl">{entry.data.title}</h1>
+      {entry.data.actualizado && (
+        <p class="mt-4 text-sm text-muted">Última actualización: <time datetime={entry.data.actualizado.toISOString()}>{fechaMx(entry.data.actualizado)}</time></p>
+      )}
+      <div class="mt-10 rounded-xl bg-paper p-6 text-sm leading-relaxed text-muted">
+        <p><span class="font-medium text-ink">Responsable del tratamiento de tus datos personales:</span> {responsable}.</p>
+        {site.legal.domicilio && <p class="mt-2"><span class="font-medium text-ink">Domicilio:</span> {site.legal.domicilio}.</p>}
+      </div>
+      <div class="prose prose-neutral mt-10 max-w-none prose-headings:font-medium prose-headings:tracking-tight prose-a:text-ink prose-a:underline-offset-4 prose-strong:font-medium">
+        <Content />
+      </div>
     </div>
   </article>
 </BaseLayout>

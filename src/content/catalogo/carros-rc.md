@@ -5,9 +5,8 @@ description: Carros de radio control por escala y especialidad —micro, on-road
 linea: carros-rc
 encabezado:
   badge: Catálogo técnico
-  title: Ingeniería sobre ruedas
-  slogan: Precisión milimétrica, potencia absoluta
-  badgeColor: primary
+  title: Carros de *radio control*
+  slogan: Ingeniería sobre ruedas. Precisión milimétrica, potencia absoluta.
 filtros:
   - { id: todos, label: Todos }
   - { id: on-road, label: On-road }
@@ -15,10 +14,8 @@ filtros:
   - { id: drift, label: Drift }
   - { id: micro, label: Micro }
 bloque:
-  variante: naranja
-  fondo: PITSTOP
-  titulo: Respaldo
-  resaltado: técnico total
+  variante: destacado
+  titulo: Respaldo *técnico total*
   parrafos:
     - Te ayudamos con refacciones, mantenimiento y puesta a punto para que tu equipo siempre esté listo para la pista.
   tarjeta:
@@ -28,8 +25,7 @@ bloque:
     nota: Disponible para todas las marcas del catálogo
   boton: { label: Solicitar lista de partes, href: '/contacto/?servicio=soporte', estilo: claro }
 cta:
-  titulo: ¿No encuentras el
-  resaltado: modelo ideal?
+  titulo: ¿No encuentras el *modelo ideal*?
   texto: Hacemos pedidos especiales y configuraciones a la medida para pilotos exigentes. Contáctanos para recibir asesoría personalizada.
   boton: { label: Hablar con un especialista, href: '/contacto/?servicio=catalogo' }
 ---

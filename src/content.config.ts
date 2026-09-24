@@ -14,8 +14,6 @@ const tieneMarkdown = (dir: string) => {
 
 /* ───────────── Piezas reutilizables ───────────── */
 
-const color = z.enum(['primary', 'accent', 'neutral']);
-
 const boton = z.object({
   label: z.string(),
   href: z.string(),
@@ -28,20 +26,18 @@ const encabezado = z.object({
   title: z.string(),
   slogan: z.string().optional(),
   parrafos: z.array(z.string()).default([]),
-  badgeColor: color.default('primary'),
 });
 
 const cta = z.object({
+  /** `*texto*` se muestra en itálica serif. */
   titulo: z.string(),
-  resaltado: z.string(),
   texto: z.string(),
   boton,
 });
 
-const itemIcono = z.object({
+const item = z.object({
   title: z.string(),
   description: z.string(),
-  icon: z.string(),
 });
 
 /* ───────────── Colecciones ───────────── */
@@ -59,8 +55,8 @@ const paginas = defineCollection({
       hero: z
         .object({
           badge: z.string(),
-          linea1: z.string(),
-          linea2: z.string(),
+          /** Titular; `*texto*` se muestra en itálica serif. */
+          titulo: z.string(),
           tagline: z.string(),
           imagen: image(),
           alt: z.string(),
@@ -72,13 +68,12 @@ const paginas = defineCollection({
       porque: z
         .object({
           titulo: z.string(),
-          resaltado: z.string(),
           texto: z.string(),
           tarjeta: z.object({ titulo: z.string(), texto: z.string(), boton }),
         })
         .optional(),
       proceso: z
-        .object({ badge: z.string(), titulo: z.string(), pasos: z.array(itemIcono) })
+        .object({ badge: z.string(), titulo: z.string(), pasos: z.array(item) })
         .optional(),
       cta: cta.optional(),
       actualizado: z.coerce.date().optional(),
@@ -94,12 +89,10 @@ const servicios = defineCollection({
       seoTitle: z.string().max(60),
       description: z.string().min(70).max(160),
       orden: z.number().int(),
-      icono: z.enum(['corporativo', 'familias', 'liga']),
-      acento: z.enum(['primary', 'secondary']).default('primary'),
       hero: z.object({
         badge: z.string(),
-        linea1: z.string(),
-        linea2: z.string(),
+        /** Titular; `*texto*` se muestra en itálica serif. */
+        titulo: z.string(),
         texto: z.string(),
         imagen: image(),
         alt: z.string(),
@@ -113,9 +106,9 @@ const servicios = defineCollection({
         enlace: z.string(),
       }),
       seccion: encabezado,
-      caracteristicas: z.array(itemIcono).min(1),
+      caracteristicas: z.array(item).min(1),
       bloqueImagen: z
-        .object({ imagen: image(), alt: z.string(), linea1: z.string(), linea2: z.string() })
+        .object({ imagen: image(), alt: z.string(), titulo: z.string() })
         .optional(),
       cta,
     }),
@@ -137,11 +130,9 @@ const catalogo = defineCollection({
         .optional(),
       bloque: z
         .object({
-          variante: z.enum(['naranja', 'imagen']),
-          fondo: z.string().optional(),
+          variante: z.enum(['destacado', 'imagen']),
           badge: z.string().optional(),
           titulo: z.string(),
-          resaltado: z.string().optional(),
           parrafos: z.array(z.string()),
           imagen: image().optional(),
           alt: z.string().optional(),

@@ -1,6 +1,6 @@
 ---
 tipo: noticias
-title: Noticias
+title: Noticias *de pista*
 seoTitle: Noticias de radio control y drones
 description: Noticias, guías técnicas y novedades del mundo del radio control y los drones en México, por el equipo de Turbo Racing.
 badge: Blog

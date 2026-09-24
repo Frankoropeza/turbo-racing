@@ -1,5 +1,5 @@
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/oswald';
+@import '@fontsource-variable/geist';
+@import '@fontsource/instrument-serif/400-italic.css';
 
 @tailwind base;
 @tailwind components;
@@ -8,9 +8,17 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection {
+    background: theme('colors.primary.DEFAULT');
+    color: #fff;
   }
   :focus-visible {
-    outline: 2px solid theme('colors.primary');
+    outline: 2px solid theme('colors.ink');
     outline-offset: 3px;
   }
   /* Evita zoom automático en iOS al enfocar campos. */
@@ -21,9 +29,22 @@
   }
 }
 
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 24px rgb(249 115 22 / 0.35);
+@layer components {
+  /** Contenedor estándar del sitio. */
+  .contenedor {
+    @apply mx-auto w-full max-w-site px-5 md:px-8;
+  }
+  /** Etiqueta pequeña de sección: «01 — Servicios». */
+  .etiqueta {
+    @apply text-xs font-medium uppercase tracking-[0.14em] text-muted;
+  }
+  /** Palabra acentuada en itálica serif dentro de un titular. */
+  .acento {
+    @apply font-serif font-normal italic tracking-normal;
+  }
+  /** Enlace de texto con flecha. */
+  .enlace {
+    @apply inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink;
   }
 }
 

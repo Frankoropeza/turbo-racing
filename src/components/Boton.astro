@@ -2,22 +2,18 @@
 interface Props {
   href: string;
   estilo?: 'solido' | 'contorno' | 'claro';
-  acento?: 'primary' | 'secondary';
   class?: string;
 }
 
-const { href, estilo = 'solido', acento = 'primary', class: extra = '' } = Astro.props;
+const { href, estilo = 'solido', class: extra = '' } = Astro.props;
 const esExterno = /^https?:\/\//.test(href);
 
 const base =
-  'inline-flex items-center justify-center gap-2 font-bold px-8 py-4 rounded-xl transition-all uppercase tracking-widest text-sm text-center';
+  'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors';
 const estilos = {
-  solido:
-    acento === 'secondary'
-      ? 'bg-secondary hover:bg-secondary/80 text-white shadow-xl shadow-black/20'
-      : 'bg-primary-strong hover:bg-orange-600 text-white shadow-xl shadow-primary/20',
-  contorno: 'border border-white/20 hover:bg-white/10 text-white',
-  claro: 'bg-white text-primary-strong hover:bg-secondary hover:text-white',
+  solido: 'bg-ink text-white hover:bg-neutral-700',
+  contorno: 'border border-line bg-white text-ink hover:border-ink',
+  claro: 'border border-line bg-white text-ink hover:border-ink',
 } as const;
 ---
 
@@ -27,4 +23,5 @@ const estilos = {
   {...(esExterno ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
 >
   <slot />
+  <span aria-hidden="true">{esExterno ? '↗' : '→'}</span>
 </a>

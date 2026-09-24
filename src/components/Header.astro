@@ -3,24 +3,25 @@ import { site } from '@config/site';
 
 const actual = Astro.url.pathname.replace(/\/?$/, '/');
 const esActivo = (href: string) => (href === '/' ? actual === '/' : actual.startsWith(href));
+const nav = site.nav.filter((n) => n.href !== '/');
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-dark/85 backdrop-blur-md border-b border-light/5">
-  <nav aria-label="Principal" class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-6">
-    <a href="/" class="flex items-center gap-2 text-primary font-heading text-xl font-bold tracking-wider hover:text-primary/90 transition-colors shrink-0">
-      <span class="text-2xl" aria-hidden="true">🏎️</span>
-      TURBO RACING
+<header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
+  <nav aria-label="Principal" class="contenedor flex h-16 items-center justify-between gap-6">
+    <a href="/" class="flex items-center gap-2 text-[15px] font-semibold tracking-tight text-ink">
+      <span class="h-2.5 w-2.5 rounded-full bg-primary" aria-hidden="true"></span>
+      Turbo Racing
     </a>
 
-    <ul class="hidden lg:flex items-center gap-6 xl:gap-8">
-      {site.nav.map(({ href, label }) => (
+    <ul class="hidden items-center gap-7 lg:flex">
+      {nav.map(({ href, label }) => (
         <li>
           <a
             href={href}
             aria-current={esActivo(href) ? 'page' : undefined}
             class:list={[
-              'text-sm font-medium uppercase tracking-wide transition-colors hover:text-primary',
-              esActivo(href) ? 'text-primary' : 'text-light/75',
+              'text-sm transition-colors hover:text-ink',
+              esActivo(href) ? 'text-ink underline decoration-primary decoration-2 underline-offset-[6px]' : 'text-muted',
             ]}
           >
             {label}
@@ -29,46 +30,41 @@ const esActivo = (href: string) => (href === '/' ? actual === '/' : actual.start
       ))}
     </ul>
 
-    <div class="flex items-center gap-3">
-      <a
-        href="/contacto/"
-        class="hidden sm:inline-flex bg-primary-strong hover:bg-orange-600 text-white text-xs font-bold px-6 py-2.5 rounded-full transition-all uppercase tracking-widest shadow-lg shadow-primary/20"
-      >
-        Cotizar ahora
+    <div class="flex items-center gap-2">
+      <a href="/contacto/" class="hidden rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-700 sm:inline-flex">
+        Cotizar
       </a>
       <button
         id="menu-toggle"
         type="button"
-        class="lg:hidden p-2 -mr-2 text-light/80 hover:text-primary transition-colors"
+        class="-mr-2 p-2 text-ink lg:hidden"
         aria-label="Abrir menú"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path id="icon-open" stroke-linecap="round" d="M4 8h16M4 16h16" />
+          <path id="icon-close" class="hidden" stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
   </nav>
 
-  <div id="mobile-menu" class="hidden lg:hidden bg-dark/95 backdrop-blur-md border-b border-light/5">
-    <ul class="flex flex-col px-4 py-4 gap-1">
+  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden">
+    <ul class="contenedor flex flex-col py-3">
       {site.nav.map(({ href, label }) => (
         <li>
           <a
             href={href}
             aria-current={esActivo(href) ? 'page' : undefined}
-            class:list={['block py-3 text-sm font-medium uppercase tracking-wide hover:text-primary transition-colors', esActivo(href) ? 'text-primary' : 'text-light/80']}
+            class:list={['block border-b border-line py-3.5 text-base', esActivo(href) ? 'text-ink font-medium' : 'text-muted']}
           >
             {label}
           </a>
         </li>
       ))}
-      <li class="pt-3">
-        <a href="/contacto/" class="block text-center bg-primary-strong text-white text-xs font-bold px-6 py-3 rounded-full uppercase tracking-widest">
-          Cotizar ahora
-        </a>
+      <li class="py-4">
+        <a href="/contacto/" class="inline-flex rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white">Cotizar →</a>
       </li>
     </ul>
   </div>

@@ -1,4 +1,6 @@
 ---
+import { numero } from '@lib/texto';
+
 interface Props {
   accesos: { title: string; subtitle: string; href: string }[];
 }
@@ -6,24 +8,17 @@ interface Props {
 const { accesos } = Astro.props;
 ---
 
-<nav aria-label="Accesos rápidos" class="relative z-30 w-full bg-secondary">
-  <div class="h-1.5 bg-gradient-to-r from-primary via-accent to-primary w-full" aria-hidden="true"></div>
-  <ul class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/5 border-b border-white/5">
-    {accesos.map((item) => (
-      <li>
-        <a
-          href={item.href}
-          class="group h-full flex flex-col justify-center px-6 lg:px-10 py-8 lg:py-12 hover:bg-primary-strong hover:text-white transition-colors duration-500 relative overflow-hidden"
-        >
-          <span class="font-heading text-lg lg:text-xl font-bold uppercase tracking-tight mb-1 group-hover:translate-x-1 transition-transform">
+<nav aria-label="Accesos rápidos" class="contenedor mt-16">
+  <ul class="grid grid-cols-2 gap-px border-y border-line bg-line lg:grid-cols-4">
+    {accesos.map((item, i) => (
+      <li class="bg-white">
+        <a href={item.href} class="group flex h-full flex-col gap-1 px-4 py-6 transition-colors hover:bg-paper lg:px-6">
+          <span class="text-xs text-muted">{numero(i + 1)}</span>
+          <span class="flex items-center justify-between text-base font-medium text-ink">
             {item.title}
+            <span aria-hidden="true" class="text-muted transition-transform group-hover:translate-x-1 group-hover:text-ink">→</span>
           </span>
-          <span class="text-[11px] uppercase tracking-[0.2em] text-light/60 group-hover:text-white/90 font-bold transition-colors">
-            {item.subtitle}
-          </span>
-          <svg class="absolute right-8 top-1/2 -translate-y-1/2 w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
+          <span class="text-sm text-muted">{item.subtitle}</span>
         </a>
       </li>
     ))}

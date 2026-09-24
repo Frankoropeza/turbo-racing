@@ -1,34 +1,26 @@
 ---
+import SectionHeader from './SectionHeader.astro';
+import { numero } from '@lib/texto';
+
 interface Props {
   badge: string;
   titulo: string;
-  pasos: { title: string; description: string; icon: string }[];
+  pasos: { title: string; description: string }[];
+  numeroSeccion?: string;
 }
 
-const { badge, titulo, pasos } = Astro.props;
+const { badge, titulo, pasos, numeroSeccion } = Astro.props;
 ---
 
-<section class="py-24 bg-dark">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="text-center mb-16">
-      <p class="text-primary text-sm font-bold uppercase tracking-[0.4em]">{badge}</p>
-      <h2 class="font-heading text-4xl md:text-5xl font-bold text-light mt-6 uppercase italic">{titulo}</h2>
-    </div>
-
-    <ol class="grid md:grid-cols-3 gap-12 relative">
-      <li class="hidden md:block absolute top-[2.25rem] left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary via-accent to-primary opacity-20" aria-hidden="true"></li>
-      {pasos.map((paso, index) => (
-        <li class="relative text-center group">
-          <div class="w-20 h-20 border-2 border-primary/30 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:border-primary group-hover:scale-110 transition-all z-10 relative bg-dark">
-            <span class="text-3xl" aria-hidden="true">{paso.icon}</span>
-            <span class="absolute -top-2 -right-2 w-8 h-8 bg-primary-strong rounded-full flex items-center justify-center text-xs font-bold text-white italic">
-              0{index + 1}
-            </span>
-          </div>
-          <h3 class="font-heading text-xl md:text-2xl font-bold text-light mb-4 uppercase tracking-tight">{paso.title}</h3>
-          <p class="text-light/70 text-sm md:text-base max-w-xs mx-auto leading-relaxed">{paso.description}</p>
-        </li>
-      ))}
-    </ol>
-  </div>
+<section class="contenedor mt-24 md:mt-32">
+  <SectionHeader badge={badge} title={titulo} numero={numeroSeccion} />
+  <ol class="grid gap-10 md:grid-cols-3">
+    {pasos.map((paso, i) => (
+      <li>
+        <span class="font-serif text-5xl italic text-primary-strong">{numero(i + 1)}</span>
+        <h3 class="mt-4 text-lg font-medium tracking-tight text-ink">{paso.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{paso.description}</p>
+      </li>
+    ))}
+  </ol>
 </section>

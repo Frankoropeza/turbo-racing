@@ -8,6 +8,7 @@ import CategoryCard from '@components/CategoryCard.astro';
 import Boton from '@components/Boton.astro';
 import CtaFinal from '@components/CtaFinal.astro';
 import type { Migaja } from '@lib/seo';
+import { conAcento } from '@lib/texto';
 
 export async function getStaticPaths() {
   const paginas = await getCollection('catalogo');
@@ -30,6 +31,7 @@ const migas: Migaja[] = [
   { nombre: 'Inicio', url: '/' },
   { nombre: d.title, url: path },
 ];
+const otro = d.linea === 'carros-rc' ? { href: '/catalogo/drones-pro/', label: 'Ver catálogo de drones' } : { href: '/catalogo/carros-rc/', label: 'Ver catálogo de carros RC' };
 ---
 
 <BaseLayout
@@ -46,74 +48,74 @@ const migas: Migaja[] = [
 >
   <Breadcrumbs migas={migas} />
 
-  <section class="pt-32 pb-16 px-4">
-    <div class="max-w-7xl mx-auto">
-      <SectionHeader {...d.encabezado} nivel="h1">
-        <Content />
-      </SectionHeader>
-    </div>
+  <section class="contenedor pt-10 md:pt-16">
+    <SectionHeader {...d.encabezado} nivel="h1">
+      <Content />
+    </SectionHeader>
+
+    {d.aviso && (
+      <aside class="mb-12 grid gap-4 rounded-2xl bg-paper p-6 md:grid-cols-12 md:items-center md:p-8">
+        <div class="md:col-span-9">
+          <h2 class="text-base font-medium text-ink">{d.aviso.titulo}</h2>
+          <p class="mt-1 text-sm leading-relaxed text-muted">{d.aviso.texto}</p>
+        </div>
+        <div class="md:col-span-3 md:justify-self-end">
+          <Boton href={d.aviso.enlace.href} estilo="contorno">{d.aviso.enlace.label}</Boton>
+        </div>
+      </aside>
+    )}
+
+    {d.filtros && (
+      <div class="mb-10 flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar categorías">
+        <span class="mr-2 text-sm text-muted">Filtrar:</span>
+        {d.filtros.map((f, i) => (
+          <button
+            type="button"
+            data-filtro={f.id}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+            class="filtro rounded-full border border-line px-4 py-1.5 text-sm text-muted transition-colors hover:border-ink hover:text-ink aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white"
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+    )}
   </section>
 
-  {d.aviso && (
-    <section class="max-w-7xl mx-auto px-4 mb-16">
-      <div class="bg-primary/10 border border-primary/20 p-8 rounded-3xl flex flex-col md:flex-row items-center gap-8">
-        <div class="bg-primary/20 w-16 h-16 rounded-full flex items-center justify-center text-2xl shrink-0" aria-hidden="true">🛡️</div>
-        <div class="flex-1 text-center md:text-left">
-          <h2 class="font-heading text-xl font-bold text-light uppercase mb-2">{d.aviso.titulo}</h2>
-          <p class="text-light/75 text-sm">{d.aviso.texto}</p>
-        </div>
-        <Boton href={d.aviso.enlace.href} class="text-xs px-8 py-3">{d.aviso.enlace.label}</Boton>
-      </div>
-    </section>
-  )}
-
-  {d.filtros && (
-    <div class="max-w-7xl mx-auto px-4 mb-16 flex flex-wrap gap-3 items-center border-b border-white/5 pb-8" role="group" aria-label="Filtrar categorías">
-      <span class="text-[11px] uppercase font-bold text-light/60 tracking-widest mr-4">Filtrar por:</span>
-      {d.filtros.map((f, i) => (
-        <button
-          type="button"
-          data-filtro={f.id}
-          aria-pressed={i === 0 ? 'true' : 'false'}
-          class="filtro px-6 py-2 rounded-full border border-white/15 text-xs font-bold text-light/70 hover:border-primary hover:text-primary aria-pressed:border-primary aria-pressed:text-primary transition-all uppercase tracking-widest"
-        >
-          {f.label}
-        </button>
-      ))}
-    </div>
-  )}
-
-  <section class="max-w-7xl mx-auto px-4 pb-24" aria-labelledby="titulo-categorias">
-    <h2 id="titulo-categorias" class="sr-only">Categorías de {d.title.toLowerCase().replace('catálogo de ', '')}</h2>
-    <div id="grid-categorias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  <section class="contenedor" aria-labelledby="titulo-categorias">
+    <h2 id="titulo-categorias" class="sr-only">Categorías</h2>
+    <div id="grid-categorias" class="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
       {categorias.map((cat, i) => (
-        <CategoryCard categoria={cat} href={`/contacto/?servicio=catalogo`} ctaLabel="Cotizar esta gama" prioridad={i < 3} />
+        <CategoryCard categoria={cat} href="/contacto/?servicio=catalogo" ctaLabel="Cotizar esta gama" prioridad={i < 3} />
       ))}
     </div>
   </section>
 
-  {d.bloque && d.bloque.variante === 'naranja' && (
-    <section class="bg-gradient-to-br from-orange-600 to-orange-800 py-24 text-white overflow-hidden relative">
-      <div class="absolute inset-0 opacity-10" aria-hidden="true">
-        <div class="absolute -right-20 -top-20 text-[20rem] font-bold font-heading italic leading-none select-none">{d.bloque.fondo}</div>
-      </div>
-      <div class="max-w-7xl mx-auto px-4 relative z-10">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 class="font-heading text-5xl md:text-6xl font-bold mb-8 uppercase italic leading-none">
-              {d.bloque.titulo} <br /> <span class="text-dark">{d.bloque.resaltado}</span>
-            </h2>
-            {d.bloque.parrafos.map((p) => <p class="text-xl mb-10 font-medium">{p}</p>)}
-            <Boton href={d.bloque.boton.href} estilo={d.bloque.boton.estilo} class="text-xs">{d.bloque.boton.label}</Boton>
+  {d.bloque && (
+    <section class="contenedor mt-24 md:mt-32">
+      <div class="grid gap-10 border-t border-line pt-8 md:grid-cols-12 md:items-start">
+        <div class="md:col-span-6">
+          {d.bloque.badge && <p class="etiqueta mb-5">{d.bloque.badge}</p>}
+          <h2 class="text-3xl font-medium leading-[1.05] tracking-display text-ink md:text-5xl" set:html={conAcento(d.bloque.titulo)} />
+          <div class="mt-6 space-y-4 text-base leading-relaxed text-muted">
+            {d.bloque.parrafos.map((p) => <p>{p}</p>)}
           </div>
+          <div class="mt-8"><Boton href={d.bloque.boton.href} estilo={d.bloque.boton.estilo}>{d.bloque.boton.label}</Boton></div>
+        </div>
+        <div class="md:col-span-5 md:col-start-8">
           {d.bloque.tarjeta && (
-            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-12 rounded-3xl">
-              <p class="text-xs uppercase font-bold tracking-[0.3em] mb-4 text-dark">{d.bloque.tarjeta.etiqueta}</p>
-              <h3 class="font-heading text-2xl font-bold mb-6">{d.bloque.tarjeta.titulo}</h3>
-              <ul class="space-y-4 text-sm mb-8">
-                {d.bloque.tarjeta.lista.map((item) => <li class="flex gap-3"><span aria-hidden="true">✓</span> {item}</li>)}
+            <div class="rounded-2xl bg-paper p-8 md:p-10">
+              <p class="etiqueta">{d.bloque.tarjeta.etiqueta}</p>
+              <h3 class="mt-4 text-2xl font-medium tracking-tight text-ink">{d.bloque.tarjeta.titulo}</h3>
+              <ul class="mt-6 space-y-3 border-t border-line pt-6 text-sm text-muted">
+                {d.bloque.tarjeta.lista.map((item) => <li class="flex gap-2"><span class="text-primary-strong" aria-hidden="true">—</span>{item}</li>)}
               </ul>
-              <p class="text-xs uppercase font-bold tracking-widest">{d.bloque.tarjeta.nota}</p>
+              <p class="mt-6 text-xs text-muted">{d.bloque.tarjeta.nota}</p>
+            </div>
+          )}
+          {d.bloque.imagen && (
+            <div class="overflow-hidden rounded-2xl bg-paper">
+              <Image src={d.bloque.imagen} alt={d.bloque.alt ?? ''} widths={[480, 768, 1024]} sizes="(min-width: 1024px) 480px, 100vw" class="aspect-[4/3] w-full object-cover" />
             </div>
           )}
         </div>
@@ -121,26 +123,7 @@ const migas: Migaja[] = [
     </section>
   )}
 
-  {d.bloque && d.bloque.variante === 'imagen' && (
-    <section class="bg-secondary px-4 py-24 relative overflow-hidden">
-      <div class="absolute inset-0 opacity-5" aria-hidden="true">
-        <div class="absolute -left-20 -top-20 text-[20rem] font-bold font-heading italic leading-none select-none">{d.bloque.fondo}</div>
-      </div>
-      <div class="max-w-7xl mx-auto relative z-10">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-          {d.bloque.imagen && (
-            <div class="order-2 lg:order-1">
-              <Image src={d.bloque.imagen} alt={d.bloque.alt ?? ''} widths={[480, 768, 1024]} sizes="(min-width: 1024px) 600px, 100vw" class="rounded-[3rem] border border-white/5 shadow-2xl w-full" />
-            </div>
-          )}
-          <div class="order-1 lg:order-2">
-            <SectionHeader badge={d.bloque.badge ?? ''} title={d.bloque.titulo} parrafos={d.bloque.parrafos} badgeColor="neutral" />
-            <Boton href={d.bloque.boton.href} estilo={d.bloque.boton.estilo} class="text-xs">{d.bloque.boton.label}</Boton>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
+  <div class="contenedor mt-16"><a href={otro.href} class="enlace">{otro.label} <span aria-hidden="true">→</span></a></div>
 
   <CtaFinal {...d.cta} />
 </BaseLayout>

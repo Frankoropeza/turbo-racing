@@ -1,6 +1,6 @@
 ---
 tipo: contacto
-title: Contáctanos
+title: Cuéntanos sobre *tu evento*
 seoTitle: Contacto y cotizaciones
 description: Cotiza eventos corporativos, planes familiares, tu inscripción a la Pro Liga o refacciones para tu equipo de radio control y drones.
 badge: Cotizaciones

@@ -1,4 +1,5 @@
 import { site, redesActivas } from '@config/site';
+import { sinAcento } from './texto';
 
 export type TipoPagina = 'inicio' | 'servicio' | 'catalogo' | 'contacto' | 'noticias' | 'articulo' | 'legal' | 'error';
 
@@ -26,7 +27,7 @@ const WEB_ID = `${site.url}/#website`;
 
 /** Título final: evita duplicar la marca y respeta ~60 caracteres. */
 export function tituloCompleto(title: string, seoTitle?: string): string {
-  const base = (seoTitle ?? title).trim();
+  const base = sinAcento(seoTitle ?? title).trim();
   if (base.toLowerCase().includes(site.nombre.toLowerCase())) return base;
   const conMarca = `${base} | ${site.nombre}`;
   return conMarca.length <= 60 ? conMarca : base;
@@ -81,7 +82,7 @@ function migasDePan(migas: Migaja[]) {
     itemListElement: migas.map((m, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      name: m.nombre,
+      name: sinAcento(m.nombre),
       item: urlAbsoluta(m.url),
     })),
   };
@@ -117,7 +118,7 @@ export function jsonLd(input: SeoInput) {
           itemListElement: input.items.map((it, i) => ({
             '@type': 'ListItem',
             position: i + 1,
-            name: it.nombre,
+            name: sinAcento(it.nombre),
             url: urlAbsoluta(it.url),
           })),
         };
@@ -142,7 +143,7 @@ export function jsonLd(input: SeoInput) {
         graph.push({
           '@type': 'BlogPosting',
           '@id': `${url}#article`,
-          headline: input.title,
+          headline: sinAcento(input.title),
           description: input.description,
           image: imagen,
           datePublished: input.articulo.publicado.toISOString(),
@@ -169,7 +170,8 @@ export function fechaMx(fecha: Date, estilo: 'long' | 'short' = 'long'): string 
     year: 'numeric',
     month: estilo,
     day: 'numeric',
-    timeZone: 'America/Mexico_City',
+    // Las fechas del contenido son de día completo (YYYY-MM-DD, UTC): se formatean en UTC para no restar un día.
+    timeZone: 'UTC',
   });
 }
 

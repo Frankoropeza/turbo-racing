@@ -12,8 +12,8 @@ const servicios = [
 const c = site.contacto;
 const modo = c.formEndpoint ? 'endpoint' : c.whatsapp ? 'whatsapp' : c.email ? 'email' : 'ninguno';
 const campo =
-  'w-full bg-secondary/50 border border-white/15 p-4 rounded-xl text-light placeholder:text-light/40 focus:border-primary focus:outline-none transition-all';
-const etiqueta = 'block text-[11px] uppercase font-bold text-light/70 tracking-widest pl-1 mb-2';
+  'w-full rounded-lg border border-line bg-white px-4 py-3 text-ink placeholder:text-muted/70 transition-colors focus:border-ink focus:outline-none';
+const etiqueta = 'mb-2 block text-sm font-medium text-ink';
 ---
 
 {hayCanalDeContacto() && modo !== 'ninguno' ? (
@@ -54,18 +54,18 @@ const etiqueta = 'block text-[11px] uppercase font-bold text-light/70 tracking-w
       <textarea id="cf-mensaje" name="mensaje" rows="5" required class={`${campo} resize-none`} placeholder="Cuéntanos sobre tu evento: fecha, número de personas y ciudad."></textarea>
     </div>
     <div class="flex items-start gap-3">
-      <input id="cf-privacidad" name="privacidad" type="checkbox" required class="mt-1 h-5 w-5 accent-primary shrink-0" />
-      <label for="cf-privacidad" class="text-sm text-light/70">
-        Acepto el <a href="/aviso-de-privacidad/" class="text-primary underline underline-offset-2 hover:text-orange-300">aviso de privacidad</a>.
+      <input id="cf-privacidad" name="privacidad" type="checkbox" required class="mt-0.5 h-4 w-4 shrink-0 accent-ink" />
+      <label for="cf-privacidad" class="text-sm text-muted">
+        Acepto el <a href="/aviso-de-privacidad/" class="text-ink underline underline-offset-4">aviso de privacidad</a>.
       </label>
     </div>
-    <button type="submit" class="w-full bg-primary-strong hover:bg-orange-600 text-white font-bold py-5 rounded-xl uppercase tracking-widest transition-all shadow-xl shadow-primary/20">
-      Solicitar información
+    <button type="submit" class="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-700">
+      Solicitar información <span aria-hidden="true">→</span>
     </button>
-    <p id="cf-estado" class="text-sm text-light/80 min-h-[1.25rem]" role="status" aria-live="polite"></p>
+    <p id="cf-estado" class="min-h-[1.25rem] text-sm text-muted" role="status" aria-live="polite"></p>
   </form>
 ) : (
-  <div class="bg-secondary/40 border border-white/10 rounded-2xl p-8 text-light/80 leading-relaxed">
+  <div class="rounded-xl border border-line bg-paper p-8 leading-relaxed text-muted">
     <p>Estamos habilitando nuestros canales de atención. Muy pronto podrás solicitar tu cotización desde esta página.</p>
   </div>
 )}

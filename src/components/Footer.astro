@@ -4,65 +4,56 @@ import { site, redesActivas } from '@config/site';
 const year = new Date().getFullYear();
 const redes = redesActivas();
 const zonas = site.contacto.zonas;
+const servicios = site.nav.filter((n) => n.href.startsWith('/servicios/'));
+const catalogo = site.nav.filter((n) => n.href.startsWith('/catalogo/'));
+const link = 'text-sm text-muted transition-colors hover:text-ink';
 ---
 
-<footer class="bg-secondary border-t border-white/5">
-  <div class="max-w-7xl mx-auto px-4 py-20">
-    <div class="grid md:grid-cols-4 gap-12">
-      <div class="md:col-span-2">
-        <a href="/" class="flex items-center gap-2 text-primary font-heading text-2xl font-bold tracking-tighter mb-6">
-          <span class="text-3xl italic">TURBO</span> RACING MX
-        </a>
-        <p class="text-light/70 text-base leading-relaxed max-w-sm mb-8">{site.descripcion}</p>
-        {redes.length > 0 && (
-          <ul class="flex gap-4" aria-label="Redes sociales">
-            {redes.map((r) => (
-              <li>
-                <a
-                  href={r.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={r.nombre}
-                  class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary-strong transition-colors text-xs uppercase font-bold"
-                >
-                  {r.abreviatura}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <div>
-        <h2 class="font-heading text-sm font-bold uppercase tracking-wider text-light mb-6">Explorar</h2>
-        <ul class="space-y-4">
-          {site.nav.map(({ href, label }) => (
-            <li><a href={href} class="text-sm text-light/70 hover:text-primary transition-colors uppercase font-medium">{label}</a></li>
-          ))}
-          <li><a href="/contacto/" class="text-sm text-light/70 hover:text-primary transition-colors uppercase font-medium">Contacto</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h2 class="font-heading text-sm font-bold uppercase tracking-wider text-light mb-6">
-          {zonas.length > 0 ? 'Cobertura' : 'Atención'}
-        </h2>
-        {zonas.length > 0 ? (
-          <ul class="space-y-3 text-sm text-light/70 font-medium uppercase tracking-tight">
-            {zonas.map((z) => <li>{z}</li>)}
-          </ul>
-        ) : (
-          <p class="text-sm text-light/70 leading-relaxed">
-            Cotizaciones y reservas a través de nuestra <a href="/contacto/" class="text-primary underline underline-offset-2 hover:text-orange-300">página de contacto</a>.
-          </p>
-        )}
-        {site.contacto.horario && <p class="text-sm text-light/60 mt-4">{site.contacto.horario}</p>}
-      </div>
+<footer class="mt-24 border-t border-line">
+  <div class="contenedor grid gap-12 py-16 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <a href="/" class="flex items-center gap-2 text-[15px] font-semibold tracking-tight text-ink">
+        <span class="h-2.5 w-2.5 rounded-full bg-primary" aria-hidden="true"></span>
+        Turbo Racing
+      </a>
+      <p class="mt-4 max-w-sm text-sm leading-relaxed text-muted">{site.descripcion}</p>
     </div>
 
-    <div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-light/60 uppercase tracking-widest font-bold">
-      <p>&copy; {year} {site.nombreLegal}. Todos los derechos reservados.</p>
-      <a href="/aviso-de-privacidad/" class="hover:text-primary transition-colors">Aviso de privacidad</a>
+    <div class="md:col-span-2">
+      <h2 class="etiqueta mb-4">Servicios</h2>
+      <ul class="space-y-2.5">
+        {servicios.map((n) => <li><a href={n.href} class={link}>{n.label}</a></li>)}
+      </ul>
     </div>
+
+    <div class="md:col-span-2">
+      <h2 class="etiqueta mb-4">Catálogo</h2>
+      <ul class="space-y-2.5">
+        {catalogo.map((n) => <li><a href={n.href} class={link}>{n.label}</a></li>)}
+        <li><a href="/noticias/" class={link}>Noticias</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-3">
+      <h2 class="etiqueta mb-4">{zonas.length > 0 ? 'Cobertura' : 'Contacto'}</h2>
+      <ul class="space-y-2.5 text-sm text-muted">
+        {zonas.map((z) => <li>{z}</li>)}
+        {site.contacto.horario && <li>{site.contacto.horario}</li>}
+        <li><a href="/contacto/" class={link}>Solicitar cotización →</a></li>
+        {redes.map((r) => (
+          <li><a href={r.url} target="_blank" rel="noopener noreferrer" class={link}>{r.nombre} ↗</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="contenedor">
+   <div class="flex flex-col gap-3 border-t border-line py-6 text-xs text-muted md:flex-row md:items-center md:justify-between">
+    <p>&copy; {year} {site.nombreLegal}. Todos los derechos reservados.</p>
+    <div class="flex gap-6">
+      <a href="/aviso-de-privacidad/" class="hover:text-ink">Aviso de privacidad</a>
+      <a href="#top" class="hover:text-ink">↑ Volver arriba</a>
+    </div>
+   </div>
   </div>
 </footer>

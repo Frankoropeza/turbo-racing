@@ -1,23 +1,20 @@
 ---
 import Boton from './Boton.astro';
+import { conAcento } from '@lib/texto';
 
 interface Props {
   titulo: string;
-  resaltado: string;
   texto: string;
   boton: { label: string; href: string };
-  acento?: 'primary' | 'secondary';
 }
 
-const { titulo, resaltado, texto, boton, acento = 'primary' } = Astro.props;
+const { titulo, texto, boton } = Astro.props;
 ---
 
-<section class="py-24 px-4 text-center">
-  <div class="max-w-3xl mx-auto">
-    <h2 class="font-heading text-4xl md:text-5xl font-bold text-light mb-8 uppercase italic">
-      {titulo} <span class={acento === 'secondary' ? 'text-blue-300' : 'text-primary'}>{resaltado}</span>
-    </h2>
-    <p class="text-light/70 text-lg mb-12">{texto}</p>
-    <Boton href={boton.href} acento={acento} class="px-12 py-5">{boton.label}</Boton>
+<section class="contenedor mt-24">
+  <div class="rounded-2xl bg-paper px-6 py-16 text-center md:px-16 md:py-24">
+    <h2 class="mx-auto max-w-3xl text-3xl font-medium leading-[1.1] tracking-display text-ink md:text-5xl" set:html={conAcento(titulo)} />
+    <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted">{texto}</p>
+    <div class="mt-8"><Boton href={boton.href}>{boton.label}</Boton></div>
   </div>
 </section>

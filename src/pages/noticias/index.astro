@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumbs from '@components/Breadcrumbs.astro';
+import SectionHeader from '@components/SectionHeader.astro';
 import ArticleCard from '@components/ArticleCard.astro';
 import type { Migaja } from '@lib/seo';
 
@@ -29,19 +30,18 @@ const migas: Migaja[] = [
   }}
 >
   <Breadcrumbs migas={migas} />
-  <section class="max-w-7xl mx-auto px-4 pt-28 pb-20">
-    <div class="mb-12">
-      <p class="text-blue-300 text-sm font-semibold uppercase tracking-[0.2em]">{pagina.data.badge}</p>
-      <h1 class="font-heading text-4xl md:text-5xl font-bold text-light mt-2">{pagina.data.title}</h1>
-      <div class="text-light/70 mt-3 max-w-2xl"><Content /></div>
-    </div>
+  <section class="contenedor pt-10 md:pt-16">
+    <SectionHeader badge={pagina.data.badge ?? 'Blog'} title={pagina.data.title} nivel="h1">
+      <Content />
+    </SectionHeader>
 
     {noticias.length > 0 ? (
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h2 class="sr-only">Artículos publicados</h2>
+      <div class="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
         {noticias.map((n) => <ArticleCard noticia={n} />)}
       </div>
     ) : (
-      <p class="text-light/70 text-center py-20">Todavía no hay noticias publicadas.</p>
+      <p class="py-20 text-center text-muted">Todavía no hay noticias publicadas.</p>
     )}
   </section>
 </BaseLayout>

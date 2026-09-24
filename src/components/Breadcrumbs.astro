@@ -1,5 +1,6 @@
 ---
 import type { Migaja } from '@lib/seo';
+import { sinAcento } from '@lib/texto';
 
 interface Props {
   migas: Migaja[];
@@ -8,15 +9,15 @@ interface Props {
 const { migas } = Astro.props;
 ---
 
-<nav aria-label="Ruta de navegación" class="max-w-7xl mx-auto px-4 pt-24 -mb-16 relative z-20">
-  <ol class="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-widest font-bold text-light/60">
+<nav aria-label="Ruta de navegación" class="contenedor pt-8">
+  <ol class="flex flex-wrap items-center gap-2 text-xs text-muted">
     {migas.map((m, i) => (
       <li class="flex items-center gap-2">
-        {i > 0 && <span aria-hidden="true" class="text-light/30">/</span>}
+        {i > 0 && <span aria-hidden="true">/</span>}
         {i < migas.length - 1 ? (
-          <a href={m.url} class="hover:text-primary transition-colors">{m.nombre}</a>
+          <a href={m.url} class="hover:text-ink">{sinAcento(m.nombre)}</a>
         ) : (
-          <span aria-current="page" class="text-light/80">{m.nombre}</span>
+          <span aria-current="page" class="text-ink">{sinAcento(m.nombre)}</span>
         )}
       </li>
     ))}

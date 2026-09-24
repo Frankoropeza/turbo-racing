@@ -1,39 +1,33 @@
 ---
+import { conAcento } from '@lib/texto';
+
 interface Props {
   badge: string;
   title: string;
   parrafos?: string[];
   slogan?: string;
-  badgeColor?: 'primary' | 'accent' | 'neutral';
+  /** Número de sección («01»). Opcional. */
+  numero?: string;
   /** Usa h1 cuando el encabezado abre la página. */
   nivel?: 'h1' | 'h2';
 }
 
-const { badge, title, parrafos = [], slogan, badgeColor = 'primary', nivel = 'h2' } = Astro.props;
+const { badge, title, parrafos = [], slogan, numero, nivel = 'h2' } = Astro.props;
 const Heading = nivel;
-
-const colorClasses = {
-  primary: 'text-primary border-primary/30 bg-primary/10',
-  accent: 'text-blue-300 border-accent/40 bg-accent/10',
-  neutral: 'text-light border-light/20 bg-white/5',
-} as const;
+const tamano = nivel === 'h1' ? 'text-4xl md:text-6xl' : 'text-3xl md:text-5xl';
 ---
 
-<div class="mb-16 border-b border-white/5 pb-16">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-    <div class="lg:sticky lg:top-24">
-      <span class={`inline-block px-4 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-[0.35em] mb-6 ${colorClasses[badgeColor]}`}>
-        {badge}
-      </span>
-      <Heading class="font-heading text-4xl md:text-5xl font-bold text-light uppercase leading-[0.95] tracking-tighter italic text-glow">
-        {title}
-      </Heading>
-      {slogan && <p class="text-primary text-lg md:text-xl font-medium mt-4 tracking-wide">{slogan}</p>}
-    </div>
+<div class="mb-12 grid gap-8 border-t border-line pt-8 md:mb-16 md:grid-cols-12">
+  <div class="md:col-span-6">
+    <p class="etiqueta mb-5">{numero && <span class="text-ink">{numero}</span>}{numero && ' — '}{badge}</p>
+    <Heading class={`${tamano} font-medium leading-[1.05] tracking-display text-ink`} set:html={conAcento(title)} />
+    {slogan && <p class="mt-4 text-base text-muted">{slogan}</p>}
+  </div>
 
-    <div class="space-y-6 text-light/70 text-base leading-relaxed max-w-xl tracking-wide">
+  {(parrafos.length > 0 || Astro.slots.has('default')) && (
+    <div class="space-y-4 text-base leading-relaxed text-muted md:col-span-5 md:col-start-8 md:pt-10 [&_strong]:font-medium [&_strong]:text-ink">
       {parrafos.map((p) => <p>{p}</p>)}
       <slot />
     </div>
-  </div>
+  )}
 </div>
