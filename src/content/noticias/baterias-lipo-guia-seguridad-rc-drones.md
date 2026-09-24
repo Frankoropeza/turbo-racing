@@ -1,7 +1,7 @@
 ---
 title: 'Baterías LiPo para carros RC y drones: guía de carga, almacenamiento y seguridad'
 seoTitle: 'Baterías LiPo para RC y drones: guía de seguridad'
-description: 'Cómo cargar, usar, almacenar, transportar y desechar baterías LiPo de carros RC y drones: voltajes por celda, tasa C, señales de riesgo y buenas prácticas.'
+description: 'Cómo cargar, usar, guardar, transportar y desechar baterías LiPo de carros RC y drones: voltajes por celda, tasa C, señales de riesgo y buenas prácticas.'
 orden: 5
 author: Equipo Turbo Racing
 category: tecnologia
@@ -11,95 +11,77 @@ tags: ['baterías lipo', 'seguridad', 'carros rc', 'drones', 'mantenimiento']
 servicio: familias
 ---
 
-Las **baterías LiPo** (polímero de litio) son el corazón de casi todos los carros RC y drones modernos. Entregan mucha energía en poco peso, lo que se traduce en más velocidad y más tiempo de uso. A cambio, exigen cuidados: una LiPo mal cargada, sobredescargada o golpeada puede inflarse, perder capacidad o, en el peor caso, incendiarse. Esta guía resume las prácticas que seguimos en Turbo Racing para que tus baterías rindan más y, sobre todo, para que las uses con seguridad.
+Las baterías LiPo (polímero de litio) son la razón por la que un carro RC o un dron moderno anda como anda: mucha energía en muy poco peso. También son el componente que más respeto merece de todo el equipo. Una LiPo mal cargada, sobredescargada o golpeada puede inflarse, perder capacidad o, en el peor de los casos, incendiarse.
 
-## Cómo leer las especificaciones de una LiPo
+No lo decimos para asustar. Con unos cuantos hábitos, una LiPo es perfectamente segura y dura cientos de ciclos. Estos son los que seguimos y recomendamos en Turbo Racing.
 
-### Celdas y voltaje
+## Cómo leer la etiqueta
 
-Cada celda LiPo tiene un voltaje nominal de **3.7 V** y llega a **4.2 V** a plena carga. El número de celdas se indica con la letra S: una batería 2S tiene dos celdas en serie (7.4 V nominales), una 4S tiene cuatro (14.8 V) y una 6S tiene seis (22.2 V).
+Toda LiPo trae tres datos que conviene entender antes de comprar o cargar.
 
-### Capacidad
+**El número de celdas (S).** Cada celda tiene un voltaje nominal de 3.7 V y llega a 4.2 V con carga completa. Una batería 2S tiene dos celdas en serie, una 4S tiene cuatro, y así sucesivamente.
 
-Se mide en miliamperes hora (mAh). A mayor capacidad, más tiempo de uso, pero también más peso: en drones, una batería demasiado pesada reduce la agilidad.
+**La capacidad (mAh).** Es la energía que almacena. Más capacidad significa más minutos de uso, pero también más peso, y en un dron el peso se paga en agilidad.
 
-### Tasa de descarga (C)
+**La tasa de descarga (C).** Indica cuánta corriente puede entregar respecto de su capacidad. En teoría, una batería de 1,500 mAh y 100C entrega hasta 150 A. En la práctica, esa cifra suele ser optimista; lo que importa es que la batería esté a la altura de lo que consume tu equipo.
 
-Indica cuánta corriente puede entregar la batería respecto de su capacidad. Una batería de 1,500 mAh con 100C puede entregar, en teoría, hasta 150 A. En la práctica, la cifra de la etiqueta suele ser optimista; lo importante es elegir una batería adecuada para el consumo de tu equipo.
-
-| Configuración | Voltaje nominal | Voltaje a plena carga | Uso típico |
+| Configuración | Voltaje nominal | Voltaje con carga completa | Uso típico |
 |---|---|---|---|
-| 1S | 3.7 V | 4.2 V | Micro drones y micro escala RC |
+| 1S | 3.7 V | 4.2 V | Micro drones y RC de micro escala |
 | 2S | 7.4 V | 8.4 V | Carros RC 1:10 de iniciación |
-| 3S | 11.1 V | 12.6 V | Carros RC de mayor potencia y drones de 3 pulgadas |
+| 3S | 11.1 V | 12.6 V | Carros RC de más potencia y drones de 3 pulgadas |
 | 4S | 14.8 V | 16.8 V | Drones FPV de 5 pulgadas y bashers |
 | 6S | 22.2 V | 25.2 V | Drones FPV de alto rendimiento y carros de gran escala |
 
-## Carga segura
+## La carga: donde ocurren la mayoría de los problemas
 
-### Reglas básicas
+Si hay un momento en el que hay que poner atención, es este. Seis reglas que no admiten excepciones:
 
-1. Usa siempre un **cargador balanceador** y conecta el cable de balance.
+1. Usa siempre un **cargador balanceador** y conecta el cable de balance, no solo el de potencia.
 2. Carga a **1C** como norma: una batería de 1,500 mAh se carga a 1.5 A.
-3. Nunca cargues sin supervisión ni durante la noche.
-4. Carga dentro de una **bolsa o contenedor para LiPo**, sobre una superficie no inflamable.
-5. Deja enfriar la batería después de usarla antes de volver a cargarla.
-6. No cargues baterías golpeadas, perforadas o infladas.
+3. Nunca cargues sin supervisión, y nunca durante la noche.
+4. Carga dentro de una bolsa o contenedor para LiPo, sobre una superficie que no se queme.
+5. Deja que la batería se enfríe después de usarla antes de volver a cargarla.
+6. No cargues una batería golpeada, perforada o inflada. Ni «solo esta vez».
 
-### Configuración del cargador
+Antes de presionar el botón de inicio, revisa dos cosas en el cargador: que esté en modo LiPo y que el número de celdas coincida con la batería. Parece obvio, pero un error de configuración es una de las causas más comunes de accidentes.
 
-Verifica que el cargador esté en modo LiPo y que el número de celdas coincida con la batería. Un error en esta configuración es una de las causas más comunes de accidentes.
+## Durante el uso: no la exprimas
 
-## Uso y descarga
+Una celda LiPo no debe bajar de alrededor de **3.0 V**. Lo recomendable es terminar la sesión con unos **3.5 V por celda** en reposo. Pasar de ahí la daña de forma permanente, aunque en ese momento no se note.
 
-### No descargues de más
+Tres formas sencillas de evitarlo: configura la alarma de voltaje en el radio o en el controlador de vuelo; en carros RC, activa el corte por bajo voltaje del ESC; y cuando notes que el equipo pierde fuerza, detente o aterriza. Esa última vuelta no vale una batería.
 
-Una celda LiPo no debe bajar de alrededor de **3.0 V**, y lo recomendable es terminar la sesión con unos **3.5 V por celda** en reposo. Sobredescargar una batería la daña de forma permanente.
+La temperatura también cuenta. Las LiPo rinden mejor a temperatura ambiente: en días fríos, mantenlas templadas antes de usarlas; en días de calor, no las dejes al sol ni dentro del coche.
 
-#### Cómo evitar la sobredescarga
+## El almacenamiento: lo que más alarga su vida
 
-- Configura la alarma de voltaje del radio o del controlador de vuelo.
-- En carros RC, activa el corte por bajo voltaje del ESC.
-- Aterriza o detente en cuanto notes pérdida de potencia.
+Si no vas a usar una batería en los próximos días, llévala a **voltaje de almacenamiento**, entre 3.8 y 3.85 V por celda. Casi todos los cargadores tienen un modo *storage* que lo hace solo. Guardar una LiPo llena durante semanas es uno de los hábitos que más rápido la desgasta.
 
-### Temperatura
-
-Las LiPo rinden mejor a temperatura ambiente. En clima frío, mantenlas templadas antes de usarlas; en clima caliente, no las dejes al sol ni dentro del auto.
-
-## Almacenamiento
-
-Si no vas a usar una batería en los próximos días, llévala a **voltaje de almacenamiento**, alrededor de **3.8 a 3.85 V por celda**. La mayoría de los cargadores tiene un modo *storage* que lo hace de forma automática.
-
-| Situación | Voltaje recomendado por celda | Motivo |
+| Momento | Voltaje por celda | Por qué |
 |---|---|---|
-| Antes de usar | 4.2 V | Plena carga |
-| Al terminar la sesión | 3.5 V aprox. en reposo | Evita la sobredescarga |
-| Almacenamiento | 3.8 a 3.85 V | Máxima vida útil |
-| Límite inferior | No bajar de 3.0 V | Daño permanente |
+| Antes de usarla | 4.2 V | Carga completa |
+| Al terminar la sesión | Alrededor de 3.5 V en reposo | Evita la sobredescarga |
+| Guardada varios días | 3.8 a 3.85 V | Máxima vida útil |
+| Límite inferior | Nunca por debajo de 3.0 V | Daño permanente |
 
-### Dónde guardarlas
+Guárdalas en una bolsa o caja para LiPo, en un lugar fresco y seco, fuera del alcance de niños y mascotas, y lejos de objetos metálicos que puedan provocar un cortocircuito.
 
-- En una bolsa o caja para LiPo, lejos de materiales inflamables.
-- En un lugar fresco y seco, fuera del alcance de niños y mascotas.
-- Separadas de objetos metálicos que puedan provocar un cortocircuito.
+## Cuándo retirar una batería
 
-## Señales de que una batería debe retirarse
+Una LiPo avisa antes de fallar. Retírala si notas cualquiera de estas señales:
 
-- **Hinchazón**, aunque sea leve.
+- Hinchazón, aunque sea leve.
 - Golpes, perforaciones o daños en el empaque.
-- Calentamiento anormal durante la carga o el uso.
+- Calentamiento fuera de lo normal al cargarla o usarla.
 - Diferencias grandes de voltaje entre celdas después de balancear.
-- Pérdida notoria de tiempo de uso.
+- Una pérdida clara de tiempo de uso.
+
+Es común encontrar pilotos que siguen usando una batería «apenas inflada» porque todavía funciona. No vale la pena: una LiPo nueva cuesta mucho menos que lo que puede dañar una que falla.
 
 ## Transporte
 
-### En auto
-
-Guárdalas en una bolsa para LiPo, a voltaje de almacenamiento y sin exponerlas al calor.
-
-### En avión
-
-Las baterías de litio viajan en equipaje de mano, nunca documentadas. Como referencia general, las de hasta 100 Wh suelen estar permitidas y las de 100 a 160 Wh requieren autorización de la aerolínea. Protege los conectores y revisa siempre la política de tu aerolínea antes de viajar.
+En coche, llévalas en su bolsa, a voltaje de almacenamiento y lejos del calor. En avión, las baterías de litio van en el equipaje de mano, nunca documentadas. Como referencia general, las de hasta 100 Wh suelen estar permitidas y las de 100 a 160 Wh requieren autorización de la aerolínea. Protege los conectores y revisa siempre la política de tu aerolínea antes de viajar, porque cambia entre compañías.
 
 ## Desecho responsable
 
@@ -107,6 +89,6 @@ Una LiPo dañada no va a la basura. Descárgala por completo con el modo de desc
 
 ## Mantenimiento y servicio
 
-Muchas fallas que parecen del dron o del carro empiezan en la batería o en los conectores. Si necesitas un taller especializado en drones, escuelas donde aprender más sobre electrónica o tiendas con baterías y cargadores de calidad, revisa nuestra guía sobre [DRONN, el portal que reúne a las empresas de drones del país](/noticias/dronn-portal-de-drones-en-mexico/).
+Muchas fallas que parecen del dron o del carro empiezan en la batería o en los conectores. Si buscas un taller especializado en drones, una escuela donde aprender más de electrónica o una tienda con baterías y cargadores de calidad, te recomendamos nuestra guía sobre [DRONN, el portal que reúne a las empresas de drones del país](/noticias/dronn-portal-de-drones-en-mexico/).
 
 En Turbo Racing ofrecemos refacciones, mantenimiento y puesta a punto para carros RC. Consulta nuestro [catálogo de carros RC](/catalogo/carros-rc/) o [solicita una lista de partes](/contacto/?servicio=soporte).

@@ -1,7 +1,7 @@
 ---
 title: 'Drones en eventos corporativos: regulación, seguridad y planeación para empresas en México'
 seoTitle: 'Drones en eventos corporativos: regulación y seguridad'
-description: 'Qué debe saber una empresa antes de incluir drones en un evento o team building en México: NOM-107, seguro, zonas de vuelo, proveedores y lista de verificación.'
+description: 'Qué debe revisar una empresa antes de incluir drones en un evento o team building en México: NOM-107, seguro, sede, proveedor y seguridad del público.'
 orden: 3
 author: Equipo Turbo Racing
 category: eventos
@@ -11,106 +11,82 @@ tags: ['eventos corporativos', 'team building', 'regulación de drones', 'nom-10
 servicio: corporativo
 ---
 
-Los drones se volvieron protagonistas de los eventos corporativos: dinámicas de team building con retos de pilotaje, carreras de relevos, tomas aéreas para el aftermovie y hasta demostraciones tecnológicas para clientes. Pero incluir drones en un evento no es solo una decisión creativa; también implica **cumplir la regulación**, contratar un **seguro adecuado** y planear la seguridad de los asistentes.
+Incluir drones en un evento de empresa suele empezar con una idea atractiva: una dinámica de integración distinta, un video aéreo espectacular, algo que la gente recuerde. Donde se complica es en las preguntas que llegan después, casi siempre de parte de compras, jurídico o de la propia sede: ¿está permitido?, ¿quién responde si algo sale mal?, ¿qué necesitamos pedirle al proveedor?
 
-Esta guía reúne lo que el área de recursos humanos, de marketing o de eventos de una empresa debe revisar antes de firmar con un proveedor.
+Este artículo está pensado para quien tiene que responder esas preguntas: la persona de recursos humanos, de marketing o de eventos que va a firmar la contratación. No pretende sustituir la asesoría legal, pero sí darte el mapa completo para decidir con criterio.
 
-## Por qué usar drones en un evento corporativo
+## Qué aporta un dron a un evento de empresa
 
-### Dinámicas de integración y liderazgo
+Hay tres usos que funcionan especialmente bien.
 
-Las competencias con drones y autos RC obligan a comunicarse con precisión, repartir roles y reaccionar bajo presión. Son una alternativa atractiva a las dinámicas tradicionales porque combinan tecnología, juego y resultados medibles, como tiempos por vuelta o retos cumplidos.
+El primero es la **integración de equipos**. Una competencia de drones o de autos RC obliga a comunicarse con precisión, repartir roles y reaccionar bajo presión, y lo hace sin que se sienta como un ejercicio de manual. Además deja resultados medibles —tiempos por vuelta, retos cumplidos— que dan pie a una buena conversación de cierre.
 
-### Contenido audiovisual del evento
+El segundo es el **contenido**. Las tomas aéreas cambian la escala de un video: una convención, una planta o una convivencia al aire libre se ven distintas desde arriba, y ese material sirve después para redes, comunicación interna y la siguiente edición.
 
-Las tomas aéreas elevan la calidad del video del evento y de las piezas para redes sociales. Un aftermovie con planos cenitales, recorridos y tomas dinámicas comunica escala y energía.
-
-### Posicionamiento de marca
-
-Personalizar la pista, los vehículos y las zonas de vuelo con la identidad de la empresa convierte la actividad en una experiencia de marca.
+El tercero es la **experiencia de marca**. Una pista con la identidad de la empresa, vehículos personalizados y zonas bien diseñadas convierten la actividad en algo que los asistentes asocian con quien los invitó.
 
 ## Lo que dice la regulación
 
-En México, los drones se rigen por la **NOM-107-SCT3-2019**, publicada en el Diario Oficial de la Federación el 14 de noviembre de 2019, y la autoridad aeronáutica es la **Agencia Federal de Aviación Civil (AFAC)**. Para un evento corporativo, lo más importante es entender que el uso ya no es recreativo: normalmente se considera **privado no comercial** o **comercial**, según quién opere y con qué fin.
+En México, la operación de drones se rige por la **NOM-107-SCT3-2019**, publicada en el Diario Oficial de la Federación el 14 de noviembre de 2019, y la autoridad aeronáutica es la **Agencia Federal de Aviación Civil (AFAC)**.
 
-### Puntos clave de la norma
+El punto que más se pasa por alto es este: en un evento corporativo el vuelo ya no es recreativo. Normalmente cae en uso **privado no comercial** o **comercial**, según quién opera y con qué fin, y eso cambia los requisitos. Estos son los que más te conviene tener presentes:
 
-| Tema | Qué establece | Qué significa para tu evento |
+| Tema | Qué establece la norma | Qué implica para tu evento |
 |---|---|---|
-| Categorías por peso | Micro hasta 2 kg, pequeño de 2 a 25 kg, grande de más de 25 kg | Define los requisitos del equipo que usará el proveedor |
-| Registro | Obligatorio para drones de más de 250 g | Pide al proveedor el registro de cada equipo |
-| Seguro | Póliza de responsabilidad civil en uso privado y comercial | Solicita copia vigente de la póliza |
-| Horario | Operación de día, salvo autorización para vuelo nocturno | Un show nocturno requiere permisos adicionales |
-| Línea de vista | El piloto debe ver el dron en todo momento | Diseña zonas de vuelo abiertas y despejadas |
-| Personas | No sobrevolar personas no protegidas | Separa físicamente el área de vuelo del público |
-| Aeródromos | Distancia mínima de 9.2 km de aeródromos y 0.9 km de helipuertos | Verifica la ubicación de la sede antes de reservar |
+| Categorías por peso | Micro hasta 2 kg, pequeño de más de 2 a 25 kg, grande de más de 25 kg | Define qué requisitos aplican al equipo del proveedor |
+| Registro | Obligatorio para equipos de más de 250 g | Pide el registro de cada dron que se vaya a usar |
+| Seguro | Póliza de responsabilidad civil por daños a terceros en uso privado y comercial | Solicita copia de la póliza vigente y revisa la suma asegurada |
+| Horario | Operación entre la salida y la puesta del sol, salvo autorización | Un vuelo nocturno requiere permisos adicionales |
+| Línea de vista | El piloto debe ver el dron durante todo el vuelo | La zona de vuelo tiene que ser abierta y despejada |
+| Personas | No se vuela sobre personas que no participan en la operación, salvo equipos de 250 g o menos | El área de vuelo debe estar separada físicamente del público |
+| Aeródromos | Al menos 9.2 km de cualquier aeródromo y 0.9 km de helipuertos | Verifica la ubicación de la sede antes de reservarla |
 
-La norma tiene más detalles según la categoría y el tipo de operación. Antes de cada evento conviene revisar el texto vigente o apoyarse en un gestor especializado.
+La norma tiene más matices según la categoría del equipo y el tipo de operación, incluidas las operaciones especiales que requieren autorización. Antes de cada evento vale la pena revisar el texto vigente o apoyarse en un gestor especializado.
 
-## Cómo elegir al proveedor correcto
+## Cómo elegir al proveedor
 
-### Preguntas que debes hacer
+Un buen proveedor no se ofende con preguntas; al contrario, las tiene resueltas por escrito. Estas son las que recomendamos hacer antes de firmar:
 
-- ¿Qué equipos se usarán y cuánto pesan?
-- ¿Están registrados los equipos de más de 250 g?
-- ¿Los pilotos cuentan con la formación o licencia que exige la operación?
-- ¿Tienen póliza de responsabilidad civil vigente? ¿Por qué monto?
-- ¿Cómo delimitan la zona de vuelo y qué protocolo siguen ante una falla?
+- ¿Qué equipos se van a usar y cuánto pesa cada uno?
+- ¿Están registrados los que pesan más de 250 g?
+- ¿Qué formación o autorización tienen los pilotos para el tipo de operación?
+- ¿Cuentan con póliza de responsabilidad civil vigente y por qué monto?
+- ¿Cómo delimitan la zona de vuelo y qué hacen ante una falla del equipo?
 - ¿Quién gestiona los permisos si la sede o el horario lo requieren?
 
-### Dónde encontrar proveedores
+Si las respuestas llegan vagas o tardan en llegar, es una señal a considerar.
 
-El mercado de drones en México está disperso: hay operadores de video aéreo, escuelas, rentadoras, gestores de trámites y organizadores de experiencias. Para comparar opciones con criterio, revisa nuestra guía sobre [cómo encontrar empresas de drones en México](/noticias/dronn-portal-de-drones-en-mexico/), donde explicamos cómo un portal especializado reúne a los proveedores del sector por especialidad y por estado.
+Encontrar con quién comparar tampoco es sencillo: el mercado de drones en México está repartido entre operadores de video aéreo, escuelas, rentadoras, gestores de trámites y organizadores de experiencias. Para orientarte, en nuestra guía sobre [cómo encontrar empresas de drones en México](/noticias/dronn-portal-de-drones-en-mexico/) explicamos cómo un portal especializado reúne a los proveedores del sector por especialidad y por estado.
 
-## Seguridad de los asistentes
+## La seguridad de los asistentes
 
-### Diseño de la zona de actividad
+La regla de oro es sencilla: drones, pilotos y público nunca comparten espacio. En la práctica eso se traduce en tres zonas bien definidas.
 
-#### Área de vuelo
+La **zona de vuelo** se delimita con redes o barreras físicas, sin paso de personas mientras hay equipos en el aire y con espacio suficiente para maniobrar y aterrizar de emergencia. La **zona de pilotos** queda separada, con visibilidad completa hacia la de vuelo y un coordinador que controla quién entra y quién sale. La **zona de público** se ubica a distancia segura, con señalización clara y, de preferencia, protegida por una red.
 
-Delimitada con redes o barreras físicas, sin paso de personas durante la operación y con espacio suficiente para maniobras y aterrizajes de emergencia.
+Sobre esa base, cualquier actividad seria debería incluir:
 
-#### Área de pilotos
-
-Separada del área de vuelo, con visibilidad completa y un coordinador que controla quién entra y sale.
-
-#### Área de público
-
-A una distancia segura, con señalización clara y, de preferencia, protegida por una red.
-
-### Protocolo mínimo de seguridad
-
-1. Sesión informativa para los participantes antes de iniciar.
+1. Una plática breve de seguridad para los participantes antes de empezar.
 2. Revisión de equipos, baterías y hélices antes de cada ronda.
-3. Coordinador de seguridad con autoridad para detener la actividad.
-4. Protocolo para viento, lluvia o interferencia de señal.
-5. Zona de carga de baterías supervisada y con bolsa de seguridad.
+3. Un coordinador de seguridad con autoridad para detener la actividad en cualquier momento.
+4. Un criterio acordado de antemano para suspender por viento, lluvia o interferencia de señal.
+5. Carga de baterías supervisada y en bolsas o contenedores especiales.
 
 ## Lista de verificación para la empresa
 
-| Etapa | Pendiente | Responsable |
+| Etapa | Qué revisar | Quién suele encargarse |
 |---|---|---|
 | Planeación | Objetivo de la actividad y número de participantes | Recursos humanos o marketing |
-| Sede | Distancia a aeropuertos, espacio abierto y permisos del lugar | Eventos |
-| Proveedor | Registro de equipos, póliza y formación de pilotos | Compras |
+| Sede | Distancia a aeródromos, espacio abierto y reglas del lugar | Eventos |
+| Proveedor | Registro de equipos, póliza vigente y formación de pilotos | Compras |
 | Seguridad | Zonas delimitadas y protocolo por escrito | Proveedor y eventos |
-| Contenido | Tomas aéreas acordadas y uso de imagen de los asistentes | Marketing |
+| Contenido | Tomas acordadas y autorización de uso de imagen de los asistentes | Marketing |
 | Cierre | Entrega de video, resultados y retroalimentación | Proveedor |
 
-## Tipos de actividad con drones para empresas
+## Qué tipo de actividad elegir
 
-### Carrera de relevos por equipos
-
-Cada equipo completa un circuito con cambios de piloto, lo que obliga a coordinar tiempos y comunicación.
-
-### Retos de precisión
-
-Aterrizar en zonas marcadas, atravesar compuertas o transportar objetos ligeros pone a prueba la concentración y el trabajo en equipo.
-
-### Simuladores y pista combinada
-
-Un formato mixto con simuladores FPV, carros RC y drones con hélices protegidas permite que participen personas de todos los niveles.
+Depende del grupo. Una **carrera de relevos por equipos**, en la que cada integrante pilotea un tramo, funciona muy bien para trabajar comunicación y coordinación. Los **retos de precisión** —aterrizar en una zona marcada, atravesar compuertas, mover un objeto ligero— son ideales para grupos que prefieren concentración a velocidad. Y cuando el grupo es grande o muy diverso, un **formato mixto** con simuladores FPV, carros RC y drones con hélices protegidas permite que participe todo el mundo, tenga o no experiencia previa.
 
 ## Organiza tu evento con nosotros
 
-En [Turbo Corporate](/servicios/corporativo/) diseñamos dinámicas de team building con drones y radio control, con logística integral, zonas de seguridad y contenido audiovisual del evento. Cuéntanos qué tienes en mente en nuestra [página de contacto](/contacto/?servicio=corporativo) y te enviamos una propuesta a la medida.
+En [Turbo Corporate](/servicios/corporativo/) diseñamos dinámicas de team building con drones y radio control, con logística integral, zonas de seguridad y contenido audiovisual del evento. Cuéntanos qué tienes en mente desde nuestra [página de contacto](/contacto/?servicio=corporativo) y te enviamos una propuesta a la medida.
