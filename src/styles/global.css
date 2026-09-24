@@ -30,9 +30,9 @@
 }
 
 @layer components {
-  /** Contenedor estándar del sitio. */
+  /** Contenedor estándar: 100 % del ancho del navegador con márgenes laterales. */
   .contenedor {
-    @apply mx-auto w-full max-w-site px-5 md:px-8;
+    @apply w-full px-5 md:px-8 xl:px-12;
   }
   /** Etiqueta pequeña de sección: «01 — Servicios». */
   .etiqueta {

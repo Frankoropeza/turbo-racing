@@ -64,7 +64,7 @@ const otros = (await getCollection('servicios')).filter((s) => s.id !== servicio
     <section class="contenedor mt-24 md:mt-32">
       <figure>
         <div class="overflow-hidden rounded-2xl bg-paper">
-          <Image src={d.bloqueImagen.imagen} alt={d.bloqueImagen.alt} widths={[640, 1024, 1440]} sizes="(min-width: 1216px) 1152px, 100vw" class="aspect-[4/3] w-full object-cover md:aspect-[21/9]" />
+          <Image src={d.bloqueImagen.imagen} alt={d.bloqueImagen.alt} widths={[640, 1024, 1440, 1920]} sizes="100vw" class="aspect-[4/3] max-h-[75vh] w-full object-cover md:aspect-[21/9]" />
         </div>
         <figcaption class="mt-6 max-w-3xl text-2xl font-medium leading-snug tracking-tight text-ink md:text-4xl" set:html={conAcento(d.bloqueImagen.titulo)} />
       </figure>

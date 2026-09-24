@@ -25,7 +25,7 @@ const tamano = nivel === 'h1' ? 'text-4xl md:text-6xl' : 'text-3xl md:text-5xl';
   </div>
 
   {(parrafos.length > 0 || Astro.slots.has('default')) && (
-    <div class="space-y-4 text-base leading-relaxed text-muted md:col-span-5 md:col-start-8 md:pt-10 [&_strong]:font-medium [&_strong]:text-ink">
+    <div class="max-w-xl space-y-4 text-base leading-relaxed text-muted md:col-span-5 md:col-start-8 md:pt-10 [&_strong]:font-medium [&_strong]:text-ink">
       {parrafos.map((p) => <p>{p}</p>)}
       <slot />
     </div>

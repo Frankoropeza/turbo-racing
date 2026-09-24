@@ -24,9 +24,6 @@ export default {
         sans: ['"Geist Variable"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         serif: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
-      maxWidth: {
-        site: '76rem',
-      },
       letterSpacing: {
         display: '-0.035em',
       },

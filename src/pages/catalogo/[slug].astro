@@ -115,7 +115,7 @@ const otro = d.linea === 'carros-rc' ? { href: '/catalogo/drones-pro/', label: '
           )}
           {d.bloque.imagen && (
             <div class="overflow-hidden rounded-2xl bg-paper">
-              <Image src={d.bloque.imagen} alt={d.bloque.alt ?? ''} widths={[480, 768, 1024]} sizes="(min-width: 1024px) 480px, 100vw" class="aspect-[4/3] w-full object-cover" />
+              <Image src={d.bloque.imagen} alt={d.bloque.alt ?? ''} widths={[480, 768, 1024]} sizes="(min-width: 768px) 40vw, 100vw" class="aspect-[4/3] w-full object-cover" />
             </div>
           )}
         </div>

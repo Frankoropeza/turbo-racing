@@ -51,8 +51,8 @@ const migas: Migaja[] = [
     </header>
 
     {image && (
-      <div class="mx-auto mt-10 max-w-5xl overflow-hidden rounded-2xl bg-paper">
-        <Image src={image} alt={imageAlt ?? ''} widths={[640, 1024, 1440]} sizes="(min-width: 1024px) 1024px, 100vw" loading="eager" class="aspect-[16/9] w-full object-cover" />
+      <div class="mt-10 overflow-hidden rounded-2xl bg-paper">
+        <Image src={image} alt={imageAlt ?? ''} widths={[640, 1024, 1440, 1920]} sizes="100vw" loading="eager" class="aspect-[16/9] max-h-[75vh] w-full object-cover md:aspect-[21/9]" />
       </div>
     )}
 

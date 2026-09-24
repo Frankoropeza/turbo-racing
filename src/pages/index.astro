@@ -25,9 +25,13 @@ const carros = categorias.filter((c) => c.data.linea === 'carros-rc').sort(porOr
 const servicios = (await getCollection('servicios')).sort(porOrden);
 
 const hoy = new Date();
-const eventos = (await getCollection('eventos', ({ data }) => !data.draft && data.date >= hoy)).sort(
-  (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
-);
+// La colección de eventos puede estar vacía: solo se consulta si hay archivos (evita el aviso de Astro).
+const hayEventos = Object.keys(import.meta.glob('../content/eventos/**/*.{md,mdx}')).length > 0;
+const eventos = hayEventos
+  ? (await getCollection('eventos', ({ data }) => !data.draft && data.date >= hoy)).sort(
+      (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+    )
+  : [];
 const noticias = (await getCollection('noticias', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
@@ -41,9 +45,9 @@ const sig = () => numero(++n);
   <!-- Hero -->
   <section class="contenedor pt-12 md:pt-20">
     <p class="etiqueta mb-6">{hero.badge}</p>
-    <h1 class="max-w-5xl text-5xl font-medium leading-[1.0] tracking-display text-ink md:text-7xl lg:text-8xl" set:html={conAcento(hero.titulo)} />
+    <h1 class="max-w-[16ch] text-balance text-5xl font-medium leading-[1.0] tracking-display text-ink md:text-7xl lg:text-8xl 2xl:text-9xl" set:html={conAcento(hero.titulo)} />
     <div class="mt-10 grid gap-8 md:grid-cols-12">
-      <div class="space-y-4 text-base leading-relaxed text-muted md:col-span-6 [&_strong]:font-medium [&_strong]:text-ink">
+      <div class="max-w-2xl space-y-4 text-base leading-relaxed text-muted md:col-span-6 [&_strong]:font-medium [&_strong]:text-ink">
         <TextoHero />
       </div>
       <div class="flex flex-wrap items-start gap-3 md:col-span-5 md:col-start-8 md:justify-end">
@@ -55,10 +59,10 @@ const sig = () => numero(++n);
         src={hero.imagen}
         alt={hero.alt}
         widths={[640, 1024, 1440, 1920]}
-        sizes="(min-width: 1216px) 1152px, 100vw"
+        sizes="100vw"
         loading="eager"
         fetchpriority="high"
-        class="aspect-[4/3] w-full object-cover md:aspect-[21/9]"
+        class="aspect-[4/3] max-h-[75vh] w-full object-cover md:aspect-[21/9]"
       />
     </div>
     <p class="mt-3 text-xs text-muted">{hero.tagline}</p>
